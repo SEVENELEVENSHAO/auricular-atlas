@@ -1,0 +1,3739 @@
+{
+  "source": {
+    "id": "huang-2007",
+    "title": "Handbook of Auricular Treatment: Prescriptions & Formulae",
+    "authors": [
+      "Lichun Huang",
+      "William S. Huang"
+    ],
+    "year": 2007,
+    "pdfPages": 166,
+    "indexMethod": "English table of contents OCR with limited manual corrections; not a complete transcription of individual formula variants. Chinese OCR corrupt.",
+    "reviewStatus": "pending-source-review"
+  },
+  "prescriptions": [
+    {
+      "id": "huang-005",
+      "title": "Relieving Pain",
+      "printedPage": 5,
+      "pdfPage": 12,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 5,
+        "pdfPage": 12,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-010",
+      "title": "Relieving Vertigo and Dizziness",
+      "printedPage": 10,
+      "pdfPage": 15,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 10,
+        "pdfPage": 15,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-012",
+      "title": "Relieving Convulsion and Hyperactivity",
+      "printedPage": 12,
+      "pdfPage": 16,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 12,
+        "pdfPage": 16,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-013",
+      "title": "Relieving Cough",
+      "printedPage": 13,
+      "pdfPage": 16,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 13,
+        "pdfPage": 16,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-014",
+      "title": "Relieving Asthma",
+      "printedPage": 14,
+      "pdfPage": 17,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 14,
+        "pdfPage": 17,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-015",
+      "title": "Relieving Pruritus",
+      "printedPage": 15,
+      "pdfPage": 17,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 15,
+        "pdfPage": 17,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-016",
+      "title": "Relieving Tinnitas",
+      "printedPage": 16,
+      "pdfPage": 18,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 16,
+        "pdfPage": 18,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-017",
+      "title": "Reducing Excessive Gastric Acid",
+      "printedPage": 17,
+      "pdfPage": 18,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 17,
+        "pdfPage": 18,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-018",
+      "title": "Relieving Vomitting",
+      "printedPage": 18,
+      "pdfPage": 19,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 18,
+        "pdfPage": 19,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-019",
+      "title": "Relieving Leukorrhagia",
+      "printedPage": 19,
+      "pdfPage": 19,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 19,
+        "pdfPage": 19,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-021",
+      "title": "Tranquilizing the Mind.Exciting the Mind",
+      "printedPage": 21,
+      "pdfPage": 20,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 21,
+        "pdfPage": 20,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-023",
+      "title": "Reducing Blood Pressure and Increasing Blood Pressure",
+      "printedPage": 23,
+      "pdfPage": 21,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 23,
+        "pdfPage": 21,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-025",
+      "title": "Reducing Heart Rate.Tonifying Heart Function",
+      "printedPage": 25,
+      "pdfPage": 22,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 25,
+        "pdfPage": 22,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-027",
+      "title": "Arresting and Invigorating Blood Circulation",
+      "printedPage": 27,
+      "pdfPage": 23,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 27,
+        "pdfPage": 23,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-030",
+      "title": "Inducing Diaresis, Arresting Enuresis",
+      "printedPage": 30,
+      "pdfPage": 25,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 30,
+        "pdfPage": 25,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-032",
+      "title": "Relaxing Bowels, Relieving Diarrhea",
+      "printedPage": 32,
+      "pdfPage": 26,
+      "tocPdfPage": 4,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 32,
+        "pdfPage": 26,
+        "tocPdfPage": 4
+      }
+    },
+    {
+      "id": "huang-035",
+      "title": "Relieving Sore Throat",
+      "printedPage": 35,
+      "pdfPage": 27,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 35,
+        "pdfPage": 27,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-036",
+      "title": "Improving the Acuity Vision",
+      "printedPage": 36,
+      "pdfPage": 28,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 36,
+        "pdfPage": 28,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-037",
+      "title": "Improving Hearing",
+      "printedPage": 37,
+      "pdfPage": 28,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 37,
+        "pdfPage": 28,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-038",
+      "title": "Reliving Stuffy Nose",
+      "printedPage": 38,
+      "pdfPage": 29,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 38,
+        "pdfPage": 29,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-039",
+      "title": "Improving Facial Beauty",
+      "printedPage": 39,
+      "pdfPage": 29,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 39,
+        "pdfPage": 29,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-041",
+      "title": "Resisting Allergies",
+      "printedPage": 41,
+      "pdfPage": 30,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 41,
+        "pdfPage": 30,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-043",
+      "title": "Resisting Inflammation",
+      "printedPage": 43,
+      "pdfPage": 31,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 43,
+        "pdfPage": 31,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-045",
+      "title": "Resisting Rheumatism",
+      "printedPage": 45,
+      "pdfPage": 32,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 45,
+        "pdfPage": 32,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-046",
+      "title": "Promoting Immunity",
+      "printedPage": 46,
+      "pdfPage": 33,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 46,
+        "pdfPage": 33,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-047",
+      "title": "Reducing Body Temperature",
+      "printedPage": 47,
+      "pdfPage": 33,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 47,
+        "pdfPage": 33,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-050",
+      "title": "Regulating the Function of Autonomic Nerve",
+      "printedPage": 50,
+      "pdfPage": 35,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 50,
+        "pdfPage": 35,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-051",
+      "title": "Regulating the Function of Endocrine Glands",
+      "printedPage": 51,
+      "pdfPage": 35,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 51,
+        "pdfPage": 35,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-052",
+      "title": "Regulating Menstruation",
+      "printedPage": 52,
+      "pdfPage": 36,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 52,
+        "pdfPage": 36,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-054",
+      "title": "Tonifying the Kidney",
+      "printedPage": 54,
+      "pdfPage": 37,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 54,
+        "pdfPage": 37,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-055",
+      "title": "Replenishing the Blood",
+      "printedPage": 55,
+      "pdfPage": 37,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 55,
+        "pdfPage": 37,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-057",
+      "title": "Invigoratingthe Brain Function",
+      "printedPage": 57,
+      "pdfPage": 38,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 57,
+        "pdfPage": 38,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-058",
+      "title": "Invigorating the Function of Liver Blood",
+      "printedPage": 58,
+      "pdfPage": 39,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 58,
+        "pdfPage": 39,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-059",
+      "title": "Invigorating the Spleen and Promoting the Digestion",
+      "printedPage": 59,
+      "pdfPage": 39,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 59,
+        "pdfPage": 39,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-061",
+      "title": "Promoting Secretionof Milk",
+      "printedPage": 61,
+      "pdfPage": 40,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 61,
+        "pdfPage": 40,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-062",
+      "title": "Removing Stagnation of Qi and Relieving Distention",
+      "printedPage": 62,
+      "pdfPage": 41,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 62,
+        "pdfPage": 41,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-063",
+      "title": "Reducing Blood Sugar",
+      "printedPage": 63,
+      "pdfPage": 41,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 63,
+        "pdfPage": 41,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-064",
+      "title": "Relieving Spasm",
+      "printedPage": 64,
+      "pdfPage": 42,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 64,
+        "pdfPage": 42,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-065",
+      "title": "Improving the Function of Gallbladder",
+      "printedPage": 65,
+      "pdfPage": 42,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 65,
+        "pdfPage": 42,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-066",
+      "title": "Improving Sleep",
+      "printedPage": 66,
+      "pdfPage": 43,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 66,
+        "pdfPage": 43,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-067",
+      "title": "Relieving Excessive Sweating",
+      "printedPage": 67,
+      "pdfPage": 43,
+      "tocPdfPage": 5,
+      "category": "General functions",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 67,
+        "pdfPage": 43,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-071",
+      "title": "Gastritis",
+      "printedPage": 71,
+      "pdfPage": 45,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 71,
+        "pdfPage": 45,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-073",
+      "title": "Gastric Ulcerand Duodenum Ulcer",
+      "printedPage": 73,
+      "pdfPage": 46,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 73,
+        "pdfPage": 46,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-076",
+      "title": "Acute Gastroenteritis",
+      "printedPage": 76,
+      "pdfPage": 48,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 76,
+        "pdfPage": 48,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-078",
+      "title": "Chronic Pancreatitis",
+      "printedPage": 78,
+      "pdfPage": 49,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 78,
+        "pdfPage": 49,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-079",
+      "title": "Hiccough (Phunospasm)",
+      "printedPage": 79,
+      "pdfPage": 49,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 79,
+        "pdfPage": 49,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-080",
+      "title": "Esophagitis",
+      "printedPage": 80,
+      "pdfPage": 50,
+      "tocPdfPage": 5,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 80,
+        "pdfPage": 50,
+        "tocPdfPage": 5
+      }
+    },
+    {
+      "id": "huang-081",
+      "title": "Cholecystitis, Cholangits",
+      "printedPage": 81,
+      "pdfPage": 50,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 81,
+        "pdfPage": 50,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-083",
+      "title": "Hepatitis, Posthepstitic Syndrome",
+      "printedPage": 83,
+      "pdfPage": 51,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 83,
+        "pdfPage": 51,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-084",
+      "title": "Intestine Dysfunction",
+      "printedPage": 84,
+      "pdfPage": 52,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 84,
+        "pdfPage": 52,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-085",
+      "title": "Constipation",
+      "printedPage": 85,
+      "pdfPage": 52,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 85,
+        "pdfPage": 52,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-086",
+      "title": "Diarrhea",
+      "printedPage": 86,
+      "pdfPage": 53,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 86,
+        "pdfPage": 53,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-088",
+      "title": "Ulcerative Colitis",
+      "printedPage": 88,
+      "pdfPage": 54,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 88,
+        "pdfPage": 54,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-089",
+      "title": "Crohn's Disease",
+      "printedPage": 89,
+      "pdfPage": 54,
+      "tocPdfPage": 6,
+      "category": "Digestive system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 89,
+        "pdfPage": 54,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-091",
+      "title": "Tracheitis",
+      "printedPage": 91,
+      "pdfPage": 55,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 91,
+        "pdfPage": 55,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-092",
+      "title": "Bronchial Asthma",
+      "printedPage": 92,
+      "pdfPage": 56,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 92,
+        "pdfPage": 56,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-093",
+      "title": "Chest Pain, Chest Congestion, Shortness of Breath",
+      "printedPage": 93,
+      "pdfPage": 56,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 93,
+        "pdfPage": 56,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-094",
+      "title": "Bronchiectasis",
+      "printedPage": 94,
+      "pdfPage": 57,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 94,
+        "pdfPage": 57,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-095",
+      "title": "Emphysema",
+      "printedPage": 95,
+      "pdfPage": 57,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 95,
+        "pdfPage": 57,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-096",
+      "title": "Common Cold",
+      "printedPage": 96,
+      "pdfPage": 58,
+      "tocPdfPage": 6,
+      "category": "Respiratory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 96,
+        "pdfPage": 58,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-099",
+      "title": "Hypertension",
+      "printedPage": 99,
+      "pdfPage": 59,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 99,
+        "pdfPage": 59,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-100",
+      "title": "Hypotention",
+      "printedPage": 100,
+      "pdfPage": 60,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 100,
+        "pdfPage": 60,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-101",
+      "title": "Coronary Heart Disease",
+      "printedPage": 101,
+      "pdfPage": 60,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 101,
+        "pdfPage": 60,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-102",
+      "title": "Arrhythmia",
+      "printedPage": 102,
+      "pdfPage": 61,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 102,
+        "pdfPage": 61,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-103",
+      "title": "Tachycardia, Fibrillation",
+      "printedPage": 103,
+      "pdfPage": 61,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 103,
+        "pdfPage": 61,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-104",
+      "title": "Bradycardia",
+      "printedPage": 104,
+      "pdfPage": 62,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 104,
+        "pdfPage": 62,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-105",
+      "title": "Pulse-Less Disease",
+      "printedPage": 105,
+      "pdfPage": 62,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 105,
+        "pdfPage": 62,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-106",
+      "title": "Cardiovascular Neurosis",
+      "printedPage": 106,
+      "pdfPage": 63,
+      "tocPdfPage": 6,
+      "category": "Circulatory system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 106,
+        "pdfPage": 63,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-108",
+      "title": "Neurasthenia",
+      "printedPage": 108,
+      "pdfPage": 64,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 108,
+        "pdfPage": 64,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-110",
+      "title": "Hysteria",
+      "printedPage": 110,
+      "pdfPage": 65,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 110,
+        "pdfPage": 65,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-112",
+      "title": "Headache-Forehead(Frontal Headache)",
+      "printedPage": 112,
+      "pdfPage": 66,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 112,
+        "pdfPage": 66,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-113",
+      "title": "Headache-Temporal, Migraine",
+      "printedPage": 113,
+      "pdfPage": 66,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 113,
+        "pdfPage": 66,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-114",
+      "title": "Occipital Headache",
+      "printedPage": 114,
+      "pdfPage": 67,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 114,
+        "pdfPage": 67,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-115",
+      "title": "Vertex Headache",
+      "printedPage": 115,
+      "pdfPage": 67,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 115,
+        "pdfPage": 67,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-118",
+      "title": "Post-Concussional Syndrome",
+      "printedPage": 118,
+      "pdfPage": 69,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 118,
+        "pdfPage": 69,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-120",
+      "title": "Psychosis",
+      "printedPage": 120,
+      "pdfPage": 70,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 120,
+        "pdfPage": 70,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-121",
+      "title": "Disturbed Function of Autonomic Nerve",
+      "printedPage": 121,
+      "pdfPage": 70,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 121,
+        "pdfPage": 70,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-122",
+      "title": "Dream Disturbed Sleep",
+      "printedPage": 122,
+      "pdfPage": 71,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 122,
+        "pdfPage": 71,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-124",
+      "title": "Epilepsy",
+      "printedPage": 124,
+      "pdfPage": 72,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 124,
+        "pdfPage": 72,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-125",
+      "title": "Facial Spasm",
+      "printedPage": 125,
+      "pdfPage": 72,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 125,
+        "pdfPage": 72,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-126",
+      "title": "Facial Paralysis",
+      "printedPage": 126,
+      "pdfPage": 73,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 126,
+        "pdfPage": 73,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-127",
+      "title": "Phantom Limb Pain",
+      "printedPage": 127,
+      "pdfPage": 73,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 127,
+        "pdfPage": 73,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-128",
+      "title": "Trigeminal Neuralgia",
+      "printedPage": 128,
+      "pdfPage": 74,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 128,
+        "pdfPage": 74,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-130",
+      "title": "Intercostal Neuralgia",
+      "printedPage": 130,
+      "pdfPage": 75,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 130,
+        "pdfPage": 75,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-131",
+      "title": "Improving Depression, Anxiety, Stress, Nervousness",
+      "printedPage": 131,
+      "pdfPage": 75,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 131,
+        "pdfPage": 75,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-132",
+      "title": "Improving Fatigue",
+      "printedPage": 132,
+      "pdfPage": 76,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 132,
+        "pdfPage": 76,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-134",
+      "title": "Attention Deficit Disorder",
+      "printedPage": 134,
+      "pdfPage": 77,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 134,
+        "pdfPage": 77,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-135",
+      "title": "Infantile Autism",
+      "printedPage": 135,
+      "pdfPage": 77,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 135,
+        "pdfPage": 77,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-136",
+      "title": "Asperger Syndrome",
+      "printedPage": 136,
+      "pdfPage": 78,
+      "tocPdfPage": 6,
+      "category": "Nervous & mental disorders",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 136,
+        "pdfPage": 78,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-138",
+      "title": "Diabetes Insipidus",
+      "printedPage": 138,
+      "pdfPage": 79,
+      "tocPdfPage": 6,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 138,
+        "pdfPage": 79,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-139",
+      "title": "Diabetes Mellitus",
+      "printedPage": 139,
+      "pdfPage": 79,
+      "tocPdfPage": 6,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 139,
+        "pdfPage": 79,
+        "tocPdfPage": 6
+      }
+    },
+    {
+      "id": "huang-141",
+      "title": "Hyperthyroidism",
+      "printedPage": 141,
+      "pdfPage": 80,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 141,
+        "pdfPage": 80,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-143",
+      "title": "Hypothyroidism",
+      "printedPage": 143,
+      "pdfPage": 81,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 143,
+        "pdfPage": 81,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-145",
+      "title": "Hypoglycemia",
+      "printedPage": 145,
+      "pdfPage": 82,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 145,
+        "pdfPage": 82,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-146",
+      "title": "Cushing's Syndrome",
+      "printedPage": 146,
+      "pdfPage": 83,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 146,
+        "pdfPage": 83,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-147",
+      "title": "Addision's Disease",
+      "printedPage": 147,
+      "pdfPage": 83,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 147,
+        "pdfPage": 83,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-148",
+      "title": "Simple Goiter",
+      "printedPage": 148,
+      "pdfPage": 84,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 148,
+        "pdfPage": 84,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-149",
+      "title": "Obesity (Lose Weight)",
+      "printedPage": 149,
+      "pdfPage": 84,
+      "tocPdfPage": 7,
+      "category": "Endocrine & metabolic",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 149,
+        "pdfPage": 84,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-151",
+      "title": "Nephritis",
+      "printedPage": 151,
+      "pdfPage": 85,
+      "tocPdfPage": 7,
+      "category": "Urinary system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 151,
+        "pdfPage": 85,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-152",
+      "title": "Pyelonephritis",
+      "printedPage": 152,
+      "pdfPage": 86,
+      "tocPdfPage": 7,
+      "category": "Urinary system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 152,
+        "pdfPage": 86,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-153",
+      "title": "Cystitis",
+      "printedPage": 153,
+      "pdfPage": 86,
+      "tocPdfPage": 7,
+      "category": "Urinary system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 153,
+        "pdfPage": 86,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-154",
+      "title": "Urosis",
+      "printedPage": 154,
+      "pdfPage": 87,
+      "tocPdfPage": 7,
+      "category": "Urinary system",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 154,
+        "pdfPage": 87,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-156",
+      "title": "Acute Sprain and Contusion",
+      "printedPage": 156,
+      "pdfPage": 88,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 156,
+        "pdfPage": 88,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-158",
+      "title": "Torticollis (Strained Neck)",
+      "printedPage": 158,
+      "pdfPage": 89,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 158,
+        "pdfPage": 89,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-159",
+      "title": "Cervical Vertebral Degeneration",
+      "printedPage": 159,
+      "pdfPage": 89,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 159,
+        "pdfPage": 89,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-162",
+      "title": "Myfibrositis",
+      "printedPage": 162,
+      "pdfPage": 91,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 162,
+        "pdfPage": 91,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-163",
+      "title": "Periarthritis of Shoulder",
+      "printedPage": 163,
+      "pdfPage": 91,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 163,
+        "pdfPage": 91,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-165",
+      "title": "Tennis Elbow(External Humeral Epicondylitis)",
+      "printedPage": 165,
+      "pdfPage": 92,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 165,
+        "pdfPage": 92,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-166",
+      "title": "Carpal Tunnel Syndrome",
+      "printedPage": 166,
+      "pdfPage": 93,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 166,
+        "pdfPage": 93,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-167",
+      "title": "Trigger Finger",
+      "printedPage": 167,
+      "pdfPage": 93,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 167,
+        "pdfPage": 93,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-168",
+      "title": "Low Back Pain",
+      "printedPage": 168,
+      "pdfPage": 94,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 168,
+        "pdfPage": 94,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-169",
+      "title": "Lower Back Pain:Lumbar Ligaments Disease",
+      "printedPage": 169,
+      "pdfPage": 94,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 169,
+        "pdfPage": 94,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-170",
+      "title": "Sacroiliac Joint Pain",
+      "printedPage": 170,
+      "pdfPage": 95,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 170,
+        "pdfPage": 95,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-171",
+      "title": "Lumbar Muscle Pain(Strain)",
+      "printedPage": 171,
+      "pdfPage": 95,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 171,
+        "pdfPage": 95,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-172",
+      "title": "Low Back Pain due to Kidney Qi Deficiency",
+      "printedPage": 172,
+      "pdfPage": 96,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 172,
+        "pdfPage": 96,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-173",
+      "title": "Sciatic Nerve Pain",
+      "printedPage": 173,
+      "pdfPage": 96,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 173,
+        "pdfPage": 96,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-175",
+      "title": "Contusion of Coccyx",
+      "printedPage": 175,
+      "pdfPage": 97,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 175,
+        "pdfPage": 97,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-176",
+      "title": "Knee Joint Pain",
+      "printedPage": 176,
+      "pdfPage": 98,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 176,
+        "pdfPage": 98,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-177",
+      "title": "Calf Cramps",
+      "printedPage": 177,
+      "pdfPage": 98,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 177,
+        "pdfPage": 98,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-178",
+      "title": "Heel Pain",
+      "printedPage": 178,
+      "pdfPage": 99,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 178,
+        "pdfPage": 99,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-179",
+      "title": "Rheumatic Arthritis",
+      "printedPage": 179,
+      "pdfPage": 99,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 179,
+        "pdfPage": 99,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-180",
+      "title": "Costal Chondritis(Tietza Syndrome)",
+      "printedPage": 180,
+      "pdfPage": 100,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 180,
+        "pdfPage": 100,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-181",
+      "title": "Gout",
+      "printedPage": 181,
+      "pdfPage": 100,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 181,
+        "pdfPage": 100,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-182",
+      "title": "Thromboangiitis Obliterans",
+      "printedPage": 182,
+      "pdfPage": 101,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 182,
+        "pdfPage": 101,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-183",
+      "title": "Thrombophlibitis",
+      "printedPage": 183,
+      "pdfPage": 101,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 183,
+        "pdfPage": 101,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-184",
+      "title": "Raynaud's Disease",
+      "printedPage": 184,
+      "pdfPage": 102,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 184,
+        "pdfPage": 102,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-185",
+      "title": "Erythrome Lalgia",
+      "printedPage": 185,
+      "pdfPage": 102,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 185,
+        "pdfPage": 102,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-186",
+      "title": "Erysipelas",
+      "printedPage": 186,
+      "pdfPage": 103,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 186,
+        "pdfPage": 103,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-187",
+      "title": "Lobular Breast Hyperplasia",
+      "printedPage": 187,
+      "pdfPage": 103,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 187,
+        "pdfPage": 103,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-188",
+      "title": "Mastitis",
+      "printedPage": 188,
+      "pdfPage": 104,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 188,
+        "pdfPage": 104,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-189",
+      "title": "Edema at Arm Pit After Breast Cancer Surgery",
+      "printedPage": 189,
+      "pdfPage": 104,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 189,
+        "pdfPage": 104,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-190",
+      "title": "Lymphadenitis",
+      "printedPage": 190,
+      "pdfPage": 105,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 190,
+        "pdfPage": 105,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-191",
+      "title": "Appendicitis",
+      "printedPage": 191,
+      "pdfPage": 105,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 191,
+        "pdfPage": 105,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-192",
+      "title": "Cholelithiasis（Gall Stone）",
+      "printedPage": 192,
+      "pdfPage": 106,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 192,
+        "pdfPage": 106,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-193",
+      "title": "Kidney Stone",
+      "printedPage": 193,
+      "pdfPage": 106,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 193,
+        "pdfPage": 106,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-194",
+      "title": "Ureter Stone",
+      "printedPage": 194,
+      "pdfPage": 107,
+      "tocPdfPage": 7,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 194,
+        "pdfPage": 107,
+        "tocPdfPage": 7
+      }
+    },
+    {
+      "id": "huang-195",
+      "title": "Bladder Stone",
+      "printedPage": 195,
+      "pdfPage": 107,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 195,
+        "pdfPage": 107,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-196",
+      "title": "Urinary System Stone",
+      "printedPage": 196,
+      "pdfPage": 108,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 196,
+        "pdfPage": 108,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-197",
+      "title": "Prostatitis",
+      "printedPage": 197,
+      "pdfPage": 108,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 197,
+        "pdfPage": 108,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-198",
+      "title": "Hypertrophy of Prostate",
+      "printedPage": 198,
+      "pdfPage": 109,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 198,
+        "pdfPage": 109,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-199",
+      "title": "Orchitis and Epididymitis",
+      "printedPage": 199,
+      "pdfPage": 109,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 199,
+        "pdfPage": 109,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-200",
+      "title": "Impotence",
+      "printedPage": 200,
+      "pdfPage": 110,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 200,
+        "pdfPage": 110,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-201",
+      "title": "Emission",
+      "printedPage": 201,
+      "pdfPage": 110,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 201,
+        "pdfPage": 110,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-202",
+      "title": "Enuresis",
+      "printedPage": 202,
+      "pdfPage": 111,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 202,
+        "pdfPage": 111,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-203",
+      "title": "Frequent Micturition",
+      "printedPage": 203,
+      "pdfPage": 111,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 203,
+        "pdfPage": 111,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-204",
+      "title": "Retention of Urine",
+      "printedPage": 204,
+      "pdfPage": 112,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 204,
+        "pdfPage": 112,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-205",
+      "title": "Incontinence of Urine",
+      "printedPage": 205,
+      "pdfPage": 112,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 205,
+        "pdfPage": 112,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-206",
+      "title": "Prolapse of Rectum",
+      "printedPage": 206,
+      "pdfPage": 113,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 206,
+        "pdfPage": 113,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-207",
+      "title": "Hemorrhoid",
+      "printedPage": 207,
+      "pdfPage": 113,
+      "tocPdfPage": 8,
+      "category": "Surgical & musculoskeletal",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 207,
+        "pdfPage": 113,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-209",
+      "title": "Auditory Vertigo",
+      "printedPage": 209,
+      "pdfPage": 114,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 209,
+        "pdfPage": 114,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-210",
+      "title": "Impaired Hearing",
+      "printedPage": 210,
+      "pdfPage": 115,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 210,
+        "pdfPage": 115,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-211",
+      "title": "Tinnitus",
+      "printedPage": 211,
+      "pdfPage": 115,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 211,
+        "pdfPage": 115,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-212",
+      "title": "Otitis Media",
+      "printedPage": 212,
+      "pdfPage": 116,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 212,
+        "pdfPage": 116,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-213",
+      "title": "Ear Pressure",
+      "printedPage": 213,
+      "pdfPage": 116,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 213,
+        "pdfPage": 116,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-214",
+      "title": "Earache",
+      "printedPage": 214,
+      "pdfPage": 117,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 214,
+        "pdfPage": 117,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-217",
+      "title": "Tonsillitis",
+      "printedPage": 217,
+      "pdfPage": 118,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 217,
+        "pdfPage": 118,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-218",
+      "title": "Acute Laryngo Pharyngitis",
+      "printedPage": 218,
+      "pdfPage": 119,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 218,
+        "pdfPage": 119,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-219",
+      "title": "Chronic Laryngo Pharyngitis",
+      "printedPage": 219,
+      "pdfPage": 119,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 219,
+        "pdfPage": 119,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-220",
+      "title": "Globus Hysterical",
+      "printedPage": 220,
+      "pdfPage": 120,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 220,
+        "pdfPage": 120,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-221",
+      "title": "Hoarseness",
+      "printedPage": 221,
+      "pdfPage": 120,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 221,
+        "pdfPage": 120,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-222",
+      "title": "Recurrent Ulcerative Stomatitis (Recurrentulcerofthe Mouth, Canker Sores)",
+      "printedPage": 222,
+      "pdfPage": 121,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 222,
+        "pdfPage": 121,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-223",
+      "title": "Toothache",
+      "printedPage": 223,
+      "pdfPage": 121,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 223,
+        "pdfPage": 121,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-224",
+      "title": "Periodontitis",
+      "printedPage": 224,
+      "pdfPage": 122,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 224,
+        "pdfPage": 122,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-225",
+      "title": "Bleeding Gums",
+      "printedPage": 225,
+      "pdfPage": 122,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 225,
+        "pdfPage": 122,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-226",
+      "title": "Temporo Mandibalar Joint Syndrome (TMJ)",
+      "printedPage": 226,
+      "pdfPage": 123,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 226,
+        "pdfPage": 123,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-227",
+      "title": "Chronic Rhinitis",
+      "printedPage": 227,
+      "pdfPage": 123,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 227,
+        "pdfPage": 123,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-228",
+      "title": "Allergic Rhinitis",
+      "printedPage": 228,
+      "pdfPage": 124,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 228,
+        "pdfPage": 124,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-229",
+      "title": "Sinusitis",
+      "printedPage": 229,
+      "pdfPage": 124,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 229,
+        "pdfPage": 124,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-230",
+      "title": "Epistaxis",
+      "printedPage": 230,
+      "pdfPage": 125,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 230,
+        "pdfPage": 125,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-231",
+      "title": "Hyposmia",
+      "printedPage": 231,
+      "pdfPage": 125,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 231,
+        "pdfPage": 125,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-232",
+      "title": "Snoring, Apnea",
+      "printedPage": 232,
+      "pdfPage": 126,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 232,
+        "pdfPage": 126,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-233",
+      "title": "Nasopharygitis, Postnasaldrop",
+      "printedPage": 233,
+      "pdfPage": 126,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 233,
+        "pdfPage": 126,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-234",
+      "title": "Conjunctivitis",
+      "printedPage": 234,
+      "pdfPage": 127,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 234,
+        "pdfPage": 127,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-235",
+      "title": "Chalazion (Stye)",
+      "printedPage": 235,
+      "pdfPage": 127,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 235,
+        "pdfPage": 127,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-236",
+      "title": "Cataract",
+      "printedPage": 236,
+      "pdfPage": 128,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 236,
+        "pdfPage": 128,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-237",
+      "title": "Myopia",
+      "printedPage": 237,
+      "pdfPage": 128,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 237,
+        "pdfPage": 128,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-238",
+      "title": "Glaucoma",
+      "printedPage": 238,
+      "pdfPage": 129,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 238,
+        "pdfPage": 129,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-239",
+      "title": "Ametropia, Pain Between Eyebrow",
+      "printedPage": 239,
+      "pdfPage": 129,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 239,
+        "pdfPage": 129,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-240",
+      "title": "Keratitis",
+      "printedPage": 240,
+      "pdfPage": 130,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 240,
+        "pdfPage": 130,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-241",
+      "title": "Optie Neuritis, Optic Atrophy",
+      "printedPage": 241,
+      "pdfPage": 130,
+      "tocPdfPage": 8,
+      "category": "Five sense organs",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 241,
+        "pdfPage": 130,
+        "tocPdfPage": 8
+      }
+    },
+    {
+      "id": "huang-243",
+      "title": "Menstrual Disorder(Menoxenia)",
+      "printedPage": 243,
+      "pdfPage": 131,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 243,
+        "pdfPage": 131,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-244",
+      "title": "Hypomenorrhea, Amenorrhea",
+      "printedPage": 244,
+      "pdfPage": 132,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 244,
+        "pdfPage": 132,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-245",
+      "title": "Menorrhegia, Function Metrorrhagia",
+      "printedPage": 245,
+      "pdfPage": 132,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 245,
+        "pdfPage": 132,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-246",
+      "title": "Dysmenorrhea",
+      "printedPage": 246,
+      "pdfPage": 133,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 246,
+        "pdfPage": 133,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-247",
+      "title": "Cervicitis",
+      "printedPage": 247,
+      "pdfPage": 133,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 247,
+        "pdfPage": 133,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-248",
+      "title": "Leukorrhagia",
+      "printedPage": 248,
+      "pdfPage": 134,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 248,
+        "pdfPage": 134,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-249",
+      "title": "Endometritis",
+      "printedPage": 249,
+      "pdfPage": 134,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 249,
+        "pdfPage": 134,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-250",
+      "title": "Salpingitis(Falloping Tube)",
+      "printedPage": 250,
+      "pdfPage": 135,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 250,
+        "pdfPage": 135,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-251",
+      "title": "Adnexitis",
+      "printedPage": 251,
+      "pdfPage": 135,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 251,
+        "pdfPage": 135,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-252",
+      "title": "Pelvic Imflammation",
+      "printedPage": 252,
+      "pdfPage": 136,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 252,
+        "pdfPage": 136,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-253",
+      "title": "Menopause",
+      "printedPage": 253,
+      "pdfPage": 136,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 253,
+        "pdfPage": 136,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-254",
+      "title": "Hysteroptosis",
+      "printedPage": 254,
+      "pdfPage": 137,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 254,
+        "pdfPage": 137,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-255",
+      "title": "Infertility",
+      "printedPage": 255,
+      "pdfPage": 137,
+      "tocPdfPage": 9,
+      "category": "Gynaecological",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 255,
+        "pdfPage": 137,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-258",
+      "title": "Cutaneous Pruritus",
+      "printedPage": 258,
+      "pdfPage": 139,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 258,
+        "pdfPage": 139,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-260",
+      "title": "Urticaria",
+      "printedPage": 260,
+      "pdfPage": 140,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 260,
+        "pdfPage": 140,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-261",
+      "title": "Contact Dermatitis",
+      "printedPage": 261,
+      "pdfPage": 140,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 261,
+        "pdfPage": 140,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-262",
+      "title": "Herpes Zoster",
+      "printedPage": 262,
+      "pdfPage": 141,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 262,
+        "pdfPage": 141,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-264",
+      "title": "Acne",
+      "printedPage": 264,
+      "pdfPage": 142,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 264,
+        "pdfPage": 142,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-265",
+      "title": "Rosacea",
+      "printedPage": 265,
+      "pdfPage": 142,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 265,
+        "pdfPage": 142,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-266",
+      "title": "Flat Wart",
+      "printedPage": 266,
+      "pdfPage": 143,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 266,
+        "pdfPage": 143,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-267",
+      "title": "Neurodermatitis",
+      "printedPage": 267,
+      "pdfPage": 143,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 267,
+        "pdfPage": 143,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-268",
+      "title": "Seborrhoeic Dermatitis",
+      "printedPage": 268,
+      "pdfPage": 144,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 268,
+        "pdfPage": 144,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-269",
+      "title": "Chloasma",
+      "printedPage": 269,
+      "pdfPage": 144,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 269,
+        "pdfPage": 144,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-270",
+      "title": "Vitiligo",
+      "printedPage": 270,
+      "pdfPage": 145,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 270,
+        "pdfPage": 145,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-271",
+      "title": "Eczema",
+      "printedPage": 271,
+      "pdfPage": 145,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 271,
+        "pdfPage": 145,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-272",
+      "title": "Hyperhidrosis",
+      "printedPage": 272,
+      "pdfPage": 146,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 272,
+        "pdfPage": 146,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-273",
+      "title": "Alopecia",
+      "printedPage": 273,
+      "pdfPage": 146,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 273,
+        "pdfPage": 146,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-274",
+      "title": "Lupus Erythematosus Discoides",
+      "printedPage": 274,
+      "pdfPage": 147,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 274,
+        "pdfPage": 147,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-275",
+      "title": "Psoriasis",
+      "printedPage": 275,
+      "pdfPage": 147,
+      "tocPdfPage": 9,
+      "category": "Dermatology",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 275,
+        "pdfPage": 147,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-278",
+      "title": "Preventing Common Cold",
+      "printedPage": 278,
+      "pdfPage": 149,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 278,
+        "pdfPage": 149,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-279",
+      "title": "Prevention Car, Seaand/or Plane Sickness",
+      "printedPage": 279,
+      "pdfPage": 149,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 279,
+        "pdfPage": 149,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-280",
+      "title": "Preventionof Trausfution Reaction",
+      "printedPage": 280,
+      "pdfPage": 150,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 280,
+        "pdfPage": 150,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-281",
+      "title": "Quit Smoking (Smoking Withdrawal)",
+      "printedPage": 281,
+      "pdfPage": 150,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 281,
+        "pdfPage": 150,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-282",
+      "title": "Quit Alcohol Addiction",
+      "printedPage": 282,
+      "pdfPage": 151,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 282,
+        "pdfPage": 151,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-283",
+      "title": "Quit Drug Addiction",
+      "printedPage": 283,
+      "pdfPage": 151,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 283,
+        "pdfPage": 151,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-284",
+      "title": "Athletics and Examination Syndrome",
+      "printedPage": 284,
+      "pdfPage": 152,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 284,
+        "pdfPage": 152,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-287",
+      "title": "Epidemic Pavatitis",
+      "printedPage": 287,
+      "pdfPage": 153,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 287,
+        "pdfPage": 153,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-288",
+      "title": "Cosmetic Application of Auricular Therapy",
+      "printedPage": 288,
+      "pdfPage": 154,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 288,
+        "pdfPage": 154,
+        "tocPdfPage": 9
+      }
+    },
+    {
+      "id": "huang-292",
+      "title": "Resisting Senility and Health",
+      "printedPage": 292,
+      "pdfPage": 156,
+      "tocPdfPage": 9,
+      "category": "Prevention & other applications",
+      "status": "pending-source-review",
+      "pointIds": [],
+      "pointNames": [],
+      "source": {
+        "book": "huang-2007",
+        "printedPage": 292,
+        "pdfPage": 156,
+        "tocPdfPage": 9
+      }
+    }
+  ]
+}
