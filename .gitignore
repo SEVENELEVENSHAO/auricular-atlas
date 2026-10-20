@@ -4,3 +4,12 @@ dist/
 private/
 verification/
 *.log
+/android/.gradle/
+/android/build/
+/android/local.properties
+/android/app/build/
+/android/app/build-output/
+/android/app/src/main/assets/
+/android/app/atlas-assets/
+/android/gradle/wrapper/gradle-wrapper.jar
+*.apk

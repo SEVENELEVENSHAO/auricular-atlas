@@ -18,15 +18,18 @@ export class EarViewer {
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;
   this.scene.add(new T.HemisphereLight(0xe6f5ff,0x4b3d37,2));
   for(const [pos,intensity] of [[[3,4,5],3],[[-4,0,2],1.5],[[1,3,-4],2]]){const l=new T.DirectionalLight(0xffeee2,intensity);l.position.set(...pos);this.scene.add(l);}
-  this.overlays=new T.Group();this.scene.add(this.overlays);this.ray=new T.Raycaster();this.ray.firstHitOnly=true;this.curveRay=new T.Raycaster();this.curveRay.firstHitOnly=true;
+  this.overlays=new T.Group();this.previewGroup=new T.Group();this.scene.add(this.overlays,this.previewGroup);this.ray=new T.Raycaster();this.ray.firstHitOnly=true;this.curveRay=new T.Raycaster();this.curveRay.firstHitOnly=true;
   this.resize=()=>{const w=container.clientWidth,h=container.clientHeight;this.camera.aspect=w/h;this.camera.updateProjectionMatrix();this.renderer.setSize(w,h);};window.addEventListener('resize',this.resize);this.resize();
   this.renderer.setAnimationLoop(()=>{this.controls.update();this.renderer.render(this.scene,this.camera);});
   const el=this.renderer.domElement;
-  el.addEventListener('pointerdown',e=>{this.start=[e.clientX,e.clientY];if(e.button!==0)return;if(this.mode==='curve-edit'){const target=this.findCurveTarget(e.clientX,e.clientY);if(!target)return;this.curveSelection=target;this.curveDrag=target;el.setPointerCapture(e.pointerId);this.onAction({kind:'curve-begin',...target});return;}if(this.mode==='orbit')return;this.drawing=[];this.down=true;this.last=[e.clientX,e.clientY];el.setPointerCapture(e.pointerId);this.sample(e.clientX,e.clientY);});
-  el.addEventListener('pointermove',e=>{if(this.curveDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.updateCurveTarget(this.curveDrag,anchor);this.onAction({kind:'curve-change',...this.curveDrag,anchor});}return;}if(!this.down||!['line','natural-line','area'].includes(this.mode))return;const dx=e.clientX-this.last[0],dy=e.clientY-this.last[1],steps=Math.ceil(Math.hypot(dx,dy)/3);for(let i=1;i<=steps;i++)this.sample(this.last[0]+dx*i/steps,this.last[1]+dy*i/steps);this.last=[e.clientX,e.clientY];});
-  el.addEventListener('pointerup',e=>{if(this.curveDrag){this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;return;}if(this.down){this.down=false;if(this.mode==='area'&&this.drawing.length>2){const p=this.start,dx=p[0]-e.clientX,dy=p[1]-e.clientY,steps=Math.ceil(Math.hypot(dx,dy)/3);for(let i=1;i<=steps;i++)this.sample(e.clientX+dx*i/steps,e.clientY+dy*i/steps);}if(this.drawing.length)this.onAction({kind:this.mode,anchors:this.drawing});this.drawing=[];}else if(this.mode==='orbit'&&Math.hypot(e.clientX-this.start[0],e.clientY-this.start[1])<4){const h=this.hit(e.clientX,e.clientY);if(h)this.onAction({kind:'select',anchor:h});}});
-  el.addEventListener('pointercancel',()=>{if(this.curveDrag)this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;this.down=false;this.drawing=[];});
+  el.addEventListener('pointerdown',e=>{this.start=[e.clientX,e.clientY];if(e.button!==0)return;if(this.mode==='curve-edit'){const target=this.findCurveTarget(e.clientX,e.clientY);if(!target)return;this.curveSelection=target;this.curveDrag=target;el.setPointerCapture(e.pointerId);this.onAction({kind:'curve-begin',...target});return;}if(this.mode==='orbit')return;this.drawing=[];this.down=true;el.setPointerCapture(e.pointerId);if(this.isPathMode()){const anchor=this.hit(e.clientX,e.clientY);if(anchor)this.drawing=[anchor];return;}this.sample(e.clientX,e.clientY);});
+  el.addEventListener('pointermove',e=>{if(this.curveDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.updateCurveTarget(this.curveDrag,anchor);this.onAction({kind:'curve-change',...this.curveDrag,anchor});}return;}if(!this.down||!this.isPathMode()||!this.drawing[0])return;const endpoint=this.hit(e.clientX,e.clientY);if(endpoint){this.drawing=[this.drawing[0],endpoint];this.updateDrawingPreview(...this.drawing);}});
+  el.addEventListener('pointerup',e=>{if(this.curveDrag){this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;return;}if(this.down){this.down=false;if(this.isPathMode()){const start=this.drawing[0],end=this.hit(e.clientX,e.clientY);this.clearDrawingPreview();if(start&&end&&v(start.p).distanceTo(v(end.p))>.02)this.onAction({kind:this.mode,anchors:[start,end]});}else if(this.drawing.length)this.onAction({kind:this.mode,anchors:this.drawing});this.drawing=[];}else if(this.mode==='orbit'&&Math.hypot(e.clientX-this.start[0],e.clientY-this.start[1])<4){const h=this.hit(e.clientX,e.clientY);if(h)this.onAction({kind:'select',anchor:h});}});
+  el.addEventListener('pointercancel',()=>{if(this.curveDrag)this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;this.down=false;this.drawing=[];this.clearDrawingPreview();});
  }
+ isPathMode(){return ['line','natural-line','area'].includes(this.mode);}
+ clearDrawingPreview(){for(const item of this.previewGroup.children){item.geometry?.dispose();item.material?.dispose();}this.previewGroup.clear();}
+ updateDrawingPreview(start,end){this.clearDrawingPreview();const points=[v(start.p).addScaledVector(v(start.n),.008),v(end.p).addScaledVector(v(end.n),.008)],geometry=new T.BufferGeometry().setFromPoints(points),line=new T.Line(geometry,new T.LineBasicMaterial({color:0x61d8e2,transparent:true,opacity:.8,depthTest:true}));this.previewGroup.add(line);}
  startCurveEdit(mark){this.curveEdit={mark,curve:this.buildCurve(mark)};this.curveSelection=this.curveEdit.curve.runs?.[0]?.knots?.length?{runIndex:0,knotIndex:0,type:'knot'}:null;this.curveDrag=null;}
  stopCurveEdit(){this.curveEdit=null;this.curveSelection=null;this.curveDrag=null;}
  getCurveEdit(){return this.curveEdit?.curve?JSON.parse(JSON.stringify(this.curveEdit.curve)):null;}
@@ -69,7 +72,7 @@ export class EarViewer {
   this.triangles=meshes.reduce((n,m)=>n+(m.geometry.index?.count??m.geometry.attributes.position.count)/3,0);return this.triangles;
  }
  fit(back=false){this.controls.target.set(0,0,0);this.camera.position.set(0,0,back?-6.4:6.4);this.camera.up.set(0,1,0);this.controls.update();}
- setMode(mode){this.mode=mode;this.controls.enabled=mode==='orbit';this.renderer.domElement.style.cursor=mode==='orbit'?'grab':mode==='curve-edit'?'default':'crosshair';}
+ setMode(mode){this.mode=mode;this.controls.enabled=mode==='orbit';this.renderer.domElement.style.cursor=mode==='orbit'?'grab':mode==='curve-edit'?'default':'crosshair';if(!this.isPathMode())this.clearDrawingPreview();}
  hit(x,y){const r=this.renderer.domElement.getBoundingClientRect();this.ray.setFromCamera(new T.Vector2((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1),this.camera);const h=this.ray.intersectObjects(this.meshes,false)[0];if(!h)return null;const n=(h.normal||h.face.normal).clone().transformDirection(h.object.matrixWorld);if(n.dot(this.ray.ray.direction)>0)n.negate();return {p:h.point.toArray(),n:n.toArray(),mesh:this.meshes.indexOf(h.object),face:h.faceIndex};}
  sample(x,y){const h=this.hit(x,y);if(h&&(!this.drawing.length||v(h.p).distanceTo(v(this.drawing.at(-1).p))>.006)){h.breakBefore=this.gap;this.gap=false;this.drawing.push(h);}else if(!h)this.gap=true;}
  curveRuns(mark){
@@ -135,15 +138,19 @@ export class EarViewer {
   const anchors=[];for(const run of curve?.runs??[]){for(let i=0;i<(run.knots??[]).length;i++){const a=run.knots[i].anchor??run.knots[i];anchors.push({...a,breakBefore:anchors.length>0&&i===0});}}
   if(anchors[0])delete anchors[0].breakBefore;return anchors;
  }
- clear(){this.overlays.traverse(o=>{o.geometry?.dispose();if(o.material){o.material.map?.dispose();o.material.dispose();}});this.overlays.clear();}
- stamp(anchor,text,color,size,dot=false){
+ clear(){const geometries=new Set(),materials=new Set(),textures=new Set();this.overlays.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const material of Array.isArray(o.material)?o.material:[o.material])if(material){materials.add(material);if(material.map)textures.add(material.map);}});for(const texture of textures)texture.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();this.overlays.clear();}
+ addPointDome(anchor,size){
+  const normal=v(anchor.n).normalize(),radius=Math.max(.007,Math.min(.021,size*.48)),geometry=new T.SphereGeometry(radius,18,10,0,Math.PI*2,0,Math.PI/2),material=new T.MeshStandardMaterial({color:0xe23b46,roughness:.42,metalness:.02}),dome=new T.Mesh(geometry,material);
+  dome.position.copy(v(anchor.p).addScaledVector(normal,.002));dome.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),normal);this.overlays.add(dome);
+ }
+ stamp(anchor,text,color,size,dot=false,labelRotation=0){
   const target=this.meshes[anchor.mesh];if(!target)return;
-  const canvas=document.createElement('canvas');canvas.width=dot?64:1024;canvas.height=dot?64:128;const c=canvas.getContext('2d');c.fillStyle=color;
-  if(dot){c.beginPath();c.arc(32,32,27,0,Math.PI*2);c.fill();}else{c.font='600 64px Segoe UI, sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(text,512,64,1000);}
+  const lines=String(text??'').split(/\r?\n/).slice(0,2),canvas=document.createElement('canvas');canvas.width=dot?64:1024;canvas.height=dot?64:lines.length>1?192:128;const c=canvas.getContext('2d');c.fillStyle=color;
+  if(dot){c.beginPath();c.arc(32,32,27,0,Math.PI*2);c.fill();}else{c.font='600 64px Segoe UI, sans-serif';c.textAlign='center';c.textBaseline='middle';const lineHeight=72,offset=(lines.length-1)*lineHeight/2;lines.forEach((line,index)=>c.fillText(line,512,canvas.height/2-offset+index*lineHeight,1000));}
   const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;
   const p=v(anchor.p),normal=v(anchor.n);const up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);
-  const x=new T.Vector3().crossVectors(up,normal).normalize(),y=new T.Vector3().crossVectors(normal,x).normalize();const matrix=new T.Matrix4().makeBasis(x,y,normal);const rotation=new T.Euler().setFromRotationMatrix(matrix);
-  const width=dot?size:Math.min(1.2,Math.max(.22,text.length*size*.48)),height=dot?size:size*1.6;
+  let x=new T.Vector3().crossVectors(up,normal).normalize(),y=new T.Vector3().crossVectors(normal,x).normalize();if(labelRotation){const angle=labelRotation*Math.PI/180,rotatedX=x.clone().multiplyScalar(Math.cos(angle)).addScaledVector(y,Math.sin(angle)),rotatedY=y.clone().multiplyScalar(Math.cos(angle)).addScaledVector(x,-Math.sin(angle));x=rotatedX;y=rotatedY;}const matrix=new T.Matrix4().makeBasis(x,y,normal);const rotation=new T.Euler().setFromRotationMatrix(matrix);
+  const longest=lines.reduce((max,line)=>Math.max(max,line.length),0),width=dot?size:Math.min(1.2,Math.max(.22,longest*size*.48)),height=dot?size:size*Math.max(1.6,lines.length*1.3);
   // Query only nearby triangles, keeping dense imported meshes responsive.
   const radius=Math.hypot(width,height,.16)/2,sphere=new T.Sphere(p,radius),positions=[];
   target.geometry.boundsTree.shapecast({intersectsBounds:box=>box.intersectsSphere(sphere),intersectsTriangle:tri=>{const faceNormal=tri.getNormal(new T.Vector3());if(faceNormal.dot(normal)>.15)for(const q of [tri.a,tri.b,tri.c])positions.push(q.x,q.y,q.z);return false;}});
@@ -154,30 +161,38 @@ export class EarViewer {
   const mat=new T.MeshBasicMaterial({map:texture,transparent:true,depthTest:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4,side:T.FrontSide});
   const mesh=new T.Mesh(geom,mat);this.overlays.add(mesh);
  }
+ perforate(path,size,color){
+  if(path.length<2)return;const dashLength=Math.max(.014,Math.min(.038,size*1.05)),period=dashLength*1.9,radius=Math.max(.0012,Math.min(.003,size*.08)),geometry=new T.CylinderGeometry(radius,radius,1,7),material=new T.MeshStandardMaterial({color,roughness:.5}),axis=new T.Vector3(0,1,0);let walked=0;
+  for(let i=1;i<path.length;i++){
+   const a=path[i-1],b=path[i],pa=v(a.p).addScaledVector(v(a.n),.007),pb=v(b.p).addScaledVector(v(b.n),.007),length=pa.distanceTo(pb);if(length<1e-5)continue;
+   let cursor=0;while(cursor<length-1e-6){const phase=(walked+cursor)%period,visible=phase<dashLength,step=Math.min(length-cursor,visible?dashLength-phase:period-phase);if(visible&&step>.001){const start=pa.clone().lerp(pb,cursor/length),end=pa.clone().lerp(pb,(cursor+step)/length),delta=end.clone().sub(start),dash=new T.Mesh(geometry,material);dash.position.copy(start.add(end).multiplyScalar(.5));dash.quaternion.setFromUnitVectors(axis,delta.clone().normalize());dash.scale.y=delta.length();this.overlays.add(dash);}cursor+=Math.max(step,1e-6);}
+   walked+=length;
+  }
+ }
+ pointLabelAnchor(anchor,name,size){
+  const normal=v(anchor.n).normalize(),up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);const tangent=new T.Vector3().crossVectors(up,normal).normalize();
+  const longest=String(name).split(/\r?\n/).slice(0,2).reduce((n,line)=>Math.max(n,line.length),0),labelWidth=Math.min(1.2,Math.max(.22,longest*size*.48)),offset=Math.max(.022,Math.min(.045,size))+labelWidth/2+.02,center=v(anchor.p).addScaledVector(tangent,offset),origin=center.addScaledVector(normal,.18);
+  this.ray.set(origin,normal.clone().negate());const hit=this.ray.intersectObject(this.meshes[anchor.mesh],false)[0];return hit?{...anchor,p:hit.point.toArray(),n:normal.toArray()}:null;
+ }
  renderAnnotations(project,selected,highlight=[]){
   this.clear();const active=new Set(highlight);
   for(const [layer,items] of [['markings',project.markings],['naturalLines',project.naturalLines??[]],['points',project.points]]){if(!this.visible[layer])continue;
    for(const m of items){const color=this.curveEdit?.mark?.id===m.id?'#61d8e2':m.id===selected?'#ffffff':active.has(m.id)?'#ffe08a':m.color;
-    if(m.kind==='point'){this.stamp(m.anchors[0],'',color,m.size,true);}
+    if(m.kind==='point'){this.addPointDome(m.anchors[0],m.size);}
     else if(layer==='naturalLines'){
      const source=this.activeCurveFor(m);
      if(source){for(const path of this.curvePaths(source)){if(path.length<2)continue;const positions=[];for(const a of path)positions.push(...v(a.p).addScaledVector(v(a.n),.003).toArray());const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,new T.LineBasicMaterial({color,transparent:true,opacity:.96,depthTest:true})));}}
      else {const byRun=[];let run=[];for(const a of m.anchors){if(a.breakBefore&&run.length){byRun.push(run);run=[];}run.push(a);}if(run.length)byRun.push(run);for(const anchors of byRun){if(anchors.length<2)continue;const positions=[];for(const a of anchors)positions.push(...v(a.p).addScaledVector(v(a.n),.003).toArray());const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,new T.LineBasicMaterial({color,transparent:true,opacity:.96,depthTest:true})));}}
     }
     else if(m.kind==='line'||m.kind==='area'){
-     const source=this.activeCurveFor(m);
-     if(source){for(const path of this.curvePaths(source)){let distance=0;for(let i=0;i<path.length;i++){const a=path[i];if(i)distance+=v(a.p).distanceTo(v(path[i-1].p));if(i===0||distance>=m.size*2.5){this.stamp(a,'',color,m.size*.6,true);distance=0;}}}}
-     else {let distance=0;for(let i=0;i<m.anchors.length;i++){const a=m.anchors[i];if(i)distance+=v(a.p).distanceTo(v(m.anchors[i-1].p));if(i===0||distance>=m.size*2.5){this.stamp(a,'',color,m.size*.6,true);distance=0;}}}
+     const source=this.activeCurveFor(m),paths=source?this.curvePaths(source):[m.anchors];for(const path of paths)this.perforate(path,m.size,color);
     }
     if(this.visible.labels&&m.name&&m.kind!=='line'){
      let anchor=m.anchors[Math.floor(m.anchors.length/2)];
      if(m.kind==='point'){
-      const normal=v(anchor.n),tangent=new T.Vector3(0,1,0).addScaledVector(normal,-normal.y).normalize();
-      const origin=v(anchor.p).addScaledVector(tangent,.09).addScaledVector(normal,.2);
-      this.ray.set(origin,normal.clone().negate());const hit=this.ray.intersectObject(this.meshes[anchor.mesh],false)[0];
-      if(hit)anchor={...anchor,p:hit.point.toArray()};
+      anchor=this.pointLabelAnchor(anchor,m.name,.07);if(!anchor)continue;
      }
-     this.stamp(anchor,m.name,color,m.kind==='point'?.07:m.size*2.8);
+     this.stamp(anchor,m.name,color,m.kind==='point'?.07:m.size*2.8,false,m.labelRotation??0);
     }
    }
   }
@@ -192,7 +207,7 @@ export class EarViewer {
   for(let runIndex=0;runIndex<(curve?.runs??[]).length;runIndex++)for(let knotIndex=0;knotIndex<(curve.runs[runIndex].knots??[]).length;knotIndex++){
    const knot=curve.runs[runIndex].knots[knotIndex],anchor=this.curvePoint(knot),selected=this.curveSelection?.runIndex===runIndex&&this.curveSelection?.knotIndex===knotIndex;
    const sphere=new T.Mesh(new T.SphereGeometry(selected ? .045 : .032,12,8),selected?selectedMaterial:knotMaterial);sphere.position.fromArray(anchor);this.overlays.add(sphere);
-   const handles=[];for(const side of ['in','out'])if(knot[`${side}Handle`]?.p){handles.push(anchor,...knot[`${side}Handle`].p);if(selected){const h=new T.Mesh(new T.SphereGeometry(.025,10,8),handleMaterial);h.position.fromArray(knot[`${side}Handle`].p);this.overlays.add(h);}}
+   const handles=[];for(const side of ['in','out'])if(knot[`${side}Handle`]?.p){handles.push(anchor,...knot[`${side}Handle`].p);const h=new T.Mesh(new T.SphereGeometry(.025,10,8),handleMaterial);h.position.fromArray(knot[`${side}Handle`].p);this.overlays.add(h);}
    if(handles.length){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(handles,3));this.overlays.add(new T.Line(geometry,handleLineMaterial));}
   }
  }

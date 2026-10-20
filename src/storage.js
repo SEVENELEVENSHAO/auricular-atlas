@@ -8,6 +8,7 @@ export function validateProject(p,modelId){
  const validAnchor=a=>a&&[a.p,a.n].every(v=>Array.isArray(v)&&v.length===3&&v.every(Number.isFinite))&&Number.isInteger(a.mesh);
  for(const m of [...p.points,...p.markings,...p.naturalLines]){
   if(typeof m.id!=='string'||ids.has(m.id)||typeof m.name!=='string'||m.name.length>300||!/^#[0-9a-f]{6}$/i.test(m.color)||!Number.isFinite(m.size)||m.size<.001||m.size>1||!Array.isArray(m.anchors)||m.anchors.length<1||m.anchors.length>20000)throw Error('Invalid annotation data.');
+  if(m.labelRotation!==undefined&&(!Number.isFinite(m.labelRotation)||m.labelRotation<-180||m.labelRotation>180))throw Error('Invalid label rotation.');
   ids.add(m.id);
   for(const a of m.anchors)if(!validAnchor(a))throw Error('Invalid surface anchor.');
   if(m.curve!==undefined){
