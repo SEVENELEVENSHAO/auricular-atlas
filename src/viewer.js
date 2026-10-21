@@ -180,14 +180,21 @@ export class EarViewer {
   const geometry=this.labelScreenGeometry(mark);if(!geometry)return false;
   const center=geometry.center,{x:cx,y:cy}=center;
   const pointPlacement=mark.kind==='point'?this.pointLabelPlacement(mark.anchors[0],mark.name,mark.labelSize??.045,mark.size,mark.labelRotation??0,mark.labelOffset):null;
-  this.labelGesture={mark,type,centerX:cx,centerY:cy,startX:x,startY:y,startSize:mark.kind==='point'?(mark.labelSize??.045):mark.size,startRotation:mark.labelRotation??0,startRadius:Math.max(1,Math.hypot(x-cx,y-cy)),anchorPoint:mark.kind==='point'?v(mark.anchors[0].p):null,tangentX:pointPlacement?.x,tangentY:pointPlacement?.y};
+  this.labelGesture={mark,type,centerX:cx,centerY:cy,startX:x,startY:y,startSize:mark.kind==='point'?(mark.labelSize??.045):mark.size,startRotation:mark.labelRotation??0,startRadius:Math.max(1,Math.hypot(x-cx,y-cy)),anchorPoint:mark.kind==='point'?v(mark.anchors[0].p):null,tangentX:pointPlacement?.x,tangentY:pointPlacement?.y,startOffset:pointPlacement?.offset? [...pointPlacement.offset]:null};
   this.onAction({kind:'label-begin',mark,type});return true;
  }
  updateLabelGesture(x,y){
   const edit=this.labelGesture;if(!edit)return;
   if(edit.type==='move'){
    if(edit.mark.kind==='point'){
-    const hit=this.hit(x,y);if(hit&&edit.anchorPoint&&edit.tangentX&&edit.tangentY){const delta=v(hit.p).sub(edit.anchorPoint);edit.mark.labelOffset=[delta.dot(edit.tangentX),delta.dot(edit.tangentY)];this.onAction({kind:'label-change',mark:edit.mark});}
+    if(edit.anchorPoint&&edit.tangentX&&edit.tangentY){
+     const hit=this.hit(x,y),startOffset=edit.startOffset??[0,0];
+     if(hit){const delta=v(hit.p).sub(edit.anchorPoint);edit.mark.labelOffset=[Math.max(-.35,Math.min(.35,startOffset[0]+delta.dot(edit.tangentX))),Math.max(-.35,Math.min(.35,startOffset[1]+delta.dot(edit.tangentY)))];this.onAction({kind:'label-change',mark:edit.mark});}
+     else {
+      const base=this.projectToScreen(edit.anchorPoint.toArray()),scale=.1,xPoint=this.projectToScreen(edit.anchorPoint.clone().addScaledVector(edit.tangentX,scale).toArray()),yPoint=this.projectToScreen(edit.anchorPoint.clone().addScaledVector(edit.tangentY,scale).toArray()),xAxis=[xPoint.x-base.x,xPoint.y-base.y],yAxis=[yPoint.x-base.x,yPoint.y-base.y],det=xAxis[0]*yAxis[1]-xAxis[1]*yAxis[0],dx=x-edit.startX,dy=y-edit.startY;
+      if(Math.abs(det)>1e-5){const tangentX=(dx*yAxis[1]-dy*yAxis[0])/det,tangentY=(xAxis[0]*dy-xAxis[1]*dx)/det;edit.mark.labelOffset=[Math.max(-.35,Math.min(.35,startOffset[0]+tangentX)),Math.max(-.35,Math.min(.35,startOffset[1]+tangentY))];this.onAction({kind:'label-change',mark:edit.mark});}
+     }
+    }
     return;
    }
    const anchor=this.hit(x,y);if(anchor){edit.mark.anchors[0]=anchor;this.onAction({kind:'label-change',mark:edit.mark});}
