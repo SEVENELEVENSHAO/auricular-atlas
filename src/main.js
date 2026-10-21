@@ -144,7 +144,7 @@ function updateMarkInspectorPosition() {
   const point = viewer.markScreenPosition(mark);
   const width = inspector.offsetWidth || 286;
   const height = inspector.offsetHeight || 360;
-  const gap = mark.kind === 'point' ? 72 : 22;
+  const gap = mark.kind === 'point' ? 104 : 64;
   inspector.style.left = `${Math.max(12, Math.min(window.innerWidth - width - 12, point.x + gap))}px`;
   inspector.style.top = `${Math.max(12, Math.min(window.innerHeight - height - 12, point.y - 36))}px`;
 }
@@ -238,10 +238,11 @@ function renderMarkInspector() {
   const isLine = mark.kind === 'line' || mark.kind === 'area';
   const isPoint = mark.kind === 'point';
   const thickness = lineThickness(mark);
+  const markSize = Number(mark.size ?? .035).toFixed(3);
   inspector.innerHTML = `<header><strong>${esc(mark.kind === 'point' ? 'Edit point' : mark.kind === 'label' ? 'Edit label' : 'Edit line')}</strong><button id="mark-inspector-close" aria-label="Close editor">×</button></header>
     <div class="inspector-body">
       <label class="field">Name<textarea id="inspector-name" rows="2" maxlength="100">${esc(mark.name ?? '')}</textarea></label>
-      <div class="row"><label class="field">Colour<input id="inspector-color" type="color" value="${mark.color ?? '#70ced4'}"></label>${isPoint ? `<label class="field">Point size<input id="inspector-size" type="number" min="0.01" max="0.12" step="0.005" value="${mark.size ?? .035}"></label>` : mark.kind === 'label' ? `<label class="field">Text size<input id="inspector-size" type="number" min="0.01" max="0.12" step="0.005" value="${mark.size ?? .035}"></label>` : ''}</div>
+      <div class="row"><label class="field">Colour<input id="inspector-color" type="color" value="${mark.color ?? '#70ced4'}"></label>${isPoint ? `<label class="field">Point size<input id="inspector-size" type="number" min="0.01" max="0.12" step="0.005" value="${markSize}"></label>` : mark.kind === 'label' ? `<label class="field">Font size<div class="stepper"><button type="button" data-size-step="-1" aria-label="Decrease font size">-</button><input id="inspector-size" type="text" inputmode="decimal" value="${markSize}" readonly aria-label="Font size"><button type="button" data-size-step="1" aria-label="Increase font size">+</button></div></label>` : ''}</div>
       ${lineTypeOptions(mark)}
       ${isLine ? `<fieldset class="field thickness-field"><legend>Line thickness</legend><div class="segmented" id="inspector-thickness">${lineThicknessValues.map((value) => `<button type="button" data-thickness="${value}" aria-pressed="${value === thickness}">${value}</button>`).join('')}</div></fieldset>` : ''}
       ${mark.kind === 'label' ? `<label class="field">Label rotation<input id="inspector-rotation" type="number" min="-180" max="180" step="5" value="${mark.labelRotation ?? 0}"></label>` : ''}
@@ -260,6 +261,7 @@ function renderMarkInspector() {
   $('#inspector-rotation')?.addEventListener('input', (event) => mutate(() => { mark.labelRotation = Math.max(-180, Math.min(180, Number(event.currentTarget.value) || 0)); }));
   $('#inspector-line-type')?.addEventListener('change', (event) => mutate(() => { moveLineLayer(mark, event.currentTarget.value); }));
   document.querySelectorAll('[data-thickness]').forEach((button) => button.onclick = () => mutate(() => { mark.thickness = Number(button.dataset.thickness); mark.size = lineSize(mark.thickness); renderMarkInspector(); }));
+  document.querySelectorAll('[data-size-step]').forEach((button) => button.onclick = () => mutate(() => { mark.size = Math.max(.01, Math.min(.12, Number(mark.size ?? .035) + Number(button.dataset.sizeStep) * .005)); renderMarkInspector(); }));
   $('#inspector-notes')?.addEventListener('input', (event) => mutate(() => { mark.notes = event.currentTarget.value; }));
   $('#inspector-review')?.addEventListener('change', (event) => mutate(() => { mark.review = event.currentTarget.value; }));
   $('#inspector-save').onclick = () => { inspectorSnapshot = false; commit(); renderEditor(); };

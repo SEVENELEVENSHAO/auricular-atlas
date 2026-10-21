@@ -2,25 +2,28 @@
 /* Surface editor controls stay compact while the inspector floats beside the selected mark. */
 #mark-inspector[hidden]{display:none}
 .editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 10px}
-.editor-actions button{min-height:48px}
+.editor-actions button{min-height:42px}
 .editor-actions button[data-create]{background:#344b55}
 .editor-actions .edit-toggle{grid-column:1 / -1;background:#1b2a32;border-color:var(--accent)}
 .editor-actions .edit-toggle[aria-pressed=true]{background:#68c98b;color:#0f1a21;border-color:#68c98b}
 .editor-state{padding:10px 12px;border-left:3px solid var(--border);background:#24363e;color:var(--muted);font-size:13px}
 .editor-state.active{border-color:#68c98b;color:#d9f7e2}
-#mark-inspector{position:fixed;z-index:8;width:min(292px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:#17262df5;border:1px solid var(--accent);border-radius:10px;box-shadow:0 12px 28px #071016d0}
-#mark-inspector header{position:sticky;top:0;z-index:1;background:#17262d;border-bottom:1px solid var(--border)}
-#mark-inspector header button{min-height:36px;padding:5px 12px;font-size:20px}
-.inspector-body{padding:14px 16px 16px}
-.inspector-body .field{margin-bottom:12px}
-.inspector-body textarea{min-height:58px}
-.inspector-details{margin:10px 0 14px;border-top:1px solid var(--border);padding-top:10px}
+#mark-inspector{position:fixed;z-index:8;width:min(258px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:#17262df5;border:1px solid var(--accent);border-radius:10px;box-shadow:0 12px 28px #071016d0}
+#mark-inspector header{position:sticky;top:0;z-index:1;padding:10px 12px;background:#17262d;border-bottom:1px solid var(--border)}
+#mark-inspector header button{min-height:32px;padding:4px 10px;font-size:18px}
+.inspector-body{padding:10px 12px 12px}
+.inspector-body .field{margin-bottom:8px}
+.inspector-body textarea{min-height:48px}
+.inspector-details{margin:8px 0 10px;border-top:1px solid var(--border);padding-top:8px}
 .inspector-details summary{cursor:pointer;color:var(--muted);padding:5px 0}
 .thickness-field{border:0;padding:0;margin:0 0 12px}
 .thickness-field legend{padding:0;color:var(--muted);font-size:13px}
 .segmented{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
 .segmented button{min-height:38px;padding:6px 4px;border-radius:5px}
 .segmented button[aria-pressed=true]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.stepper{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:4px}
+.stepper button{min-height:40px;padding:4px;font-size:18px}
+.stepper input{text-align:center;min-width:0}
 @media(max-width:900px){#mark-inspector{left:12px!important;right:12px;width:auto;top:auto!important;bottom:60px;max-height:55vh}.editor-actions{grid-template-columns:1fr 1fr}}
 
 /* Keep label handles above the floating inspector so they remain draggable. */
