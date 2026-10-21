@@ -21,7 +21,7 @@ $env:ANDROID_HOME = Resolve-FirstExistingPath @(
 if (-not $env:ANDROID_SDK_ROOT) { $env:ANDROID_SDK_ROOT = $env:ANDROID_HOME }
 
 Write-Output 'Building offline web assets for Android...'
-& npm.cmd run build -- --outDir android/app/atlas-assets
+& npm.cmd run build -- --outDir android/app/atlas-assets-staging
 if ($LASTEXITCODE) { throw 'Web asset build failed' }
 
 Write-Output 'Assembling debug APK...'
@@ -33,7 +33,7 @@ $gradleExe = Resolve-FirstExistingPath @(
 & $gradleExe -p .\android --no-daemon assembleDebug
 if ($LASTEXITCODE) { throw 'Android APK build failed' }
 
-$apk = Join-Path $PSScriptRoot 'android\app\build-output\outputs\apk\debug\app-debug.apk'
+$apk = Join-Path $PSScriptRoot 'android\app\build-output-staging\outputs\apk\debug\app-debug.apk'
 $copy = Join-Path $PSScriptRoot 'Auricular-Atlas.apk'
 Copy-Item -LiteralPath $apk -Destination $copy -Force
 Get-FileHash -Algorithm SHA256 -LiteralPath $copy | Format-List Algorithm, Hash, Path

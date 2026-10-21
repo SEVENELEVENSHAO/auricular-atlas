@@ -139,17 +139,23 @@ export class EarViewer {
   if(anchors[0])delete anchors[0].breakBefore;return anchors;
  }
  clear(){const geometries=new Set(),materials=new Set(),textures=new Set();this.overlays.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const material of Array.isArray(o.material)?o.material:[o.material])if(material){materials.add(material);if(material.map)textures.add(material.map);}});for(const texture of textures)texture.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();this.overlays.clear();}
+ pointDomeRadius(size){return Math.max(.007,Math.min(.021,size*.48))*.75;}
  addPointDome(anchor,size){
-  const normal=v(anchor.n).normalize(),radius=Math.max(.007,Math.min(.021,size*.48)),geometry=new T.SphereGeometry(radius,18,10,0,Math.PI*2,0,Math.PI/2),material=new T.MeshStandardMaterial({color:0xe23b46,roughness:.42,metalness:.02}),dome=new T.Mesh(geometry,material);
+  const normal=v(anchor.n).normalize(),radius=this.pointDomeRadius(size),geometry=new T.SphereGeometry(radius,18,10,0,Math.PI*2,0,Math.PI/2),material=new T.MeshStandardMaterial({color:0xe23b46,roughness:.42,metalness:.02}),dome=new T.Mesh(geometry,material);
   dome.position.copy(v(anchor.p).addScaledVector(normal,.002));dome.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),normal);this.overlays.add(dome);
+ }
+ labelAxes(normal,labelRotation=0){
+  const up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);
+  let x=new T.Vector3().crossVectors(up,normal).normalize(),y=new T.Vector3().crossVectors(normal,x).normalize();
+  if(labelRotation){const angle=labelRotation*Math.PI/180,rotatedX=x.clone().multiplyScalar(Math.cos(angle)).addScaledVector(y,Math.sin(angle)),rotatedY=y.clone().multiplyScalar(Math.cos(angle)).addScaledVector(x,-Math.sin(angle));x=rotatedX;y=rotatedY;}
+  return {x,y};
  }
  stamp(anchor,text,color,size,dot=false,labelRotation=0){
   const target=this.meshes[anchor.mesh];if(!target)return;
   const lines=String(text??'').split(/\r?\n/).slice(0,2),canvas=document.createElement('canvas');canvas.width=dot?64:1024;canvas.height=dot?64:lines.length>1?192:128;const c=canvas.getContext('2d');c.fillStyle=color;
   if(dot){c.beginPath();c.arc(32,32,27,0,Math.PI*2);c.fill();}else{c.font='600 64px Segoe UI, sans-serif';c.textAlign='center';c.textBaseline='middle';const lineHeight=72,offset=(lines.length-1)*lineHeight/2;lines.forEach((line,index)=>c.fillText(line,512,canvas.height/2-offset+index*lineHeight,1000));}
   const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;
-  const p=v(anchor.p),normal=v(anchor.n);const up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);
-  let x=new T.Vector3().crossVectors(up,normal).normalize(),y=new T.Vector3().crossVectors(normal,x).normalize();if(labelRotation){const angle=labelRotation*Math.PI/180,rotatedX=x.clone().multiplyScalar(Math.cos(angle)).addScaledVector(y,Math.sin(angle)),rotatedY=y.clone().multiplyScalar(Math.cos(angle)).addScaledVector(x,-Math.sin(angle));x=rotatedX;y=rotatedY;}const matrix=new T.Matrix4().makeBasis(x,y,normal);const rotation=new T.Euler().setFromRotationMatrix(matrix);
+  const p=v(anchor.p),normal=v(anchor.n).normalize(),{x,y}=this.labelAxes(normal,labelRotation),matrix=new T.Matrix4().makeBasis(x,y,normal),rotation=new T.Euler().setFromRotationMatrix(matrix);
   const longest=lines.reduce((max,line)=>Math.max(max,line.length),0),width=dot?size:Math.min(1.2,Math.max(.22,longest*size*.48)),height=dot?size:size*Math.max(1.6,lines.length*1.3);
   // Query only nearby triangles, keeping dense imported meshes responsive.
   const radius=Math.hypot(width,height,.16)/2,sphere=new T.Sphere(p,radius),positions=[];
@@ -162,16 +168,26 @@ export class EarViewer {
   const mesh=new T.Mesh(geom,mat);this.overlays.add(mesh);
  }
  perforate(path,size,color){
-  if(path.length<2)return;const dashLength=Math.max(.014,Math.min(.038,size*1.05)),period=dashLength*1.9,radius=Math.max(.0012,Math.min(.003,size*.08)),geometry=new T.CylinderGeometry(radius,radius,1,7),material=new T.MeshStandardMaterial({color,roughness:.5}),axis=new T.Vector3(0,1,0);let walked=0;
+  if(path.length<2)return;
+  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,radius=Math.max(.004,Math.min(.009,size*.23)),surfaceGap=.003,segments=[];let totalLength=0;
   for(let i=1;i<path.length;i++){
-   const a=path[i-1],b=path[i],pa=v(a.p).addScaledVector(v(a.n),.007),pb=v(b.p).addScaledVector(v(b.n),.007),length=pa.distanceTo(pb);if(length<1e-5)continue;
-   let cursor=0;while(cursor<length-1e-6){const phase=(walked+cursor)%period,visible=phase<dashLength,step=Math.min(length-cursor,visible?dashLength-phase:period-phase);if(visible&&step>.001){const start=pa.clone().lerp(pb,cursor/length),end=pa.clone().lerp(pb,(cursor+step)/length),delta=end.clone().sub(start),dash=new T.Mesh(geometry,material);dash.position.copy(start.add(end).multiplyScalar(.5));dash.quaternion.setFromUnitVectors(axis,delta.clone().normalize());dash.scale.y=delta.length();this.overlays.add(dash);}cursor+=Math.max(step,1e-6);}
-   walked+=length;
+   const a=path[i-1],b=path[i],from=v(a.p),to=v(b.p),length=from.distanceTo(to);if(length<1e-5)continue;
+   segments.push({a,b,from,to,length,start:totalLength,end:totalLength+length});totalLength+=length;
+  }
+  if(!segments.length)return;
+  const pointAt=distance=>{
+   const segment=segments.find(item=>distance<=item.end)??segments.at(-1),t=Math.max(0,Math.min(1,(distance-segment.start)/segment.length)),normal=v(segment.a.n).normalize().lerp(v(segment.b.n).normalize(),t).normalize();
+   return v(segment.a.p).lerp(v(segment.b.p),t).addScaledVector(normal,radius+surfaceGap);
+  };
+  const material=new T.MeshStandardMaterial({color,roughness:.3,metalness:.02}),axis=new T.Vector3(0,1,0);
+  for(let start=0;start<totalLength;start+=period){
+   const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<radius*1.5)continue;
+   const from=pointAt(start),to=pointAt(end),direction=to.clone().sub(from),shaftLength=Math.max(.001,direction.length()-radius*2),geometry=new T.CapsuleGeometry(radius,shaftLength,5,16),dash=new T.Mesh(geometry,material);
+   dash.position.copy(from.add(to).multiplyScalar(.5));dash.quaternion.setFromUnitVectors(axis,direction.normalize());this.overlays.add(dash);
   }
  }
- pointLabelAnchor(anchor,name,size){
-  const normal=v(anchor.n).normalize(),up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);const tangent=new T.Vector3().crossVectors(up,normal).normalize();
-  const longest=String(name).split(/\r?\n/).slice(0,2).reduce((n,line)=>Math.max(n,line.length),0),labelWidth=Math.min(1.2,Math.max(.22,longest*size*.48)),offset=Math.max(.022,Math.min(.045,size))+labelWidth/2+.02,center=v(anchor.p).addScaledVector(tangent,offset),origin=center.addScaledVector(normal,.18);
+ pointLabelAnchor(anchor,name,size,pointSize,labelRotation=0){
+  const normal=v(anchor.n).normalize(),tangent=this.labelAxes(normal).y,lines=String(name).split(/\r?\n/).slice(0,2),longest=lines.reduce((n,line)=>Math.max(n,line.length),0),labelWidth=Math.min(1.2,Math.max(.22,longest*size*.48)),labelHeight=size*Math.max(1.6,lines.length*1.3),angle=labelRotation*Math.PI/180,halfHeight=Math.abs(Math.cos(angle))*labelHeight/2+Math.abs(Math.sin(angle))*labelWidth/2,offset=this.pointDomeRadius(pointSize)+halfHeight+.004,center=v(anchor.p).addScaledVector(tangent,offset),origin=center.addScaledVector(normal,.18);
   this.ray.set(origin,normal.clone().negate());const hit=this.ray.intersectObject(this.meshes[anchor.mesh],false)[0];return hit?{...anchor,p:hit.point.toArray(),n:normal.toArray()}:null;
  }
  renderAnnotations(project,selected,highlight=[]){
@@ -190,7 +206,7 @@ export class EarViewer {
     if(this.visible.labels&&m.name&&m.kind!=='line'){
      let anchor=m.anchors[Math.floor(m.anchors.length/2)];
      if(m.kind==='point'){
-      anchor=this.pointLabelAnchor(anchor,m.name,.07);if(!anchor)continue;
+      anchor=this.pointLabelAnchor(anchor,m.name,.07,m.size,m.labelRotation??0);if(!anchor)continue;
      }
      this.stamp(anchor,m.name,color,m.kind==='point'?.07:m.size*2.8,false,m.labelRotation??0);
     }
@@ -207,7 +223,7 @@ export class EarViewer {
   for(let runIndex=0;runIndex<(curve?.runs??[]).length;runIndex++)for(let knotIndex=0;knotIndex<(curve.runs[runIndex].knots??[]).length;knotIndex++){
    const knot=curve.runs[runIndex].knots[knotIndex],anchor=this.curvePoint(knot),selected=this.curveSelection?.runIndex===runIndex&&this.curveSelection?.knotIndex===knotIndex;
    const sphere=new T.Mesh(new T.SphereGeometry(selected ? .045 : .032,12,8),selected?selectedMaterial:knotMaterial);sphere.position.fromArray(anchor);this.overlays.add(sphere);
-   const handles=[];for(const side of ['in','out'])if(knot[`${side}Handle`]?.p){handles.push(anchor,...knot[`${side}Handle`].p);const h=new T.Mesh(new T.SphereGeometry(.025,10,8),handleMaterial);h.position.fromArray(knot[`${side}Handle`].p);this.overlays.add(h);}
+   const handles=[];for(const side of ['in','out'])if(knot[`${side}Handle`]?.p){handles.push(...anchor,...knot[`${side}Handle`].p);const h=new T.Mesh(new T.SphereGeometry(.025,10,8),handleMaterial);h.position.fromArray(knot[`${side}Handle`].p);this.overlays.add(h);}
    if(handles.length){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(handles,3));this.overlays.add(new T.Line(geometry,handleLineMaterial));}
   }
  }
