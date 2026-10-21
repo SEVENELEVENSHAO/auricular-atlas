@@ -24,6 +24,7 @@ function renderEditor(){
  $('#deselect').onclick=()=>{if(viewer.curveEdit)viewer.stopCurveEdit();selected=null;moveId=null;renderEditor();draw();};$('#undo').onclick=undo;
  if(m){
   $('#apply').onclick=()=>{snapshot();Object.assign(m,fields());m.notes=$('#mark-notes').value;m.review=$('#mark-review').value;commit();renderEditor();};
+  $('#mark-color').onchange=e=>{const color=e.currentTarget.value;if(color===m.color)return;snapshot();m.color=color;commit();};
   $('#delete').onclick=()=>{snapshot();project.points=project.points.filter(x=>x.id!==m.id);project.markings=project.markings.filter(x=>x.id!==m.id);project.naturalLines=(project.naturalLines??[]).filter(x=>x.id!==m.id);for(const c of Object.values(project.combinations))c.pointIds=c.pointIds.filter(id=>id!==m.id);selected=null;if(viewer.curveEdit)viewer.stopCurveEdit();commit();renderEditor();};
   $('#move').onclick=()=>{if(viewer.curveEdit)viewer.stopCurveEdit();moveId=m.id;setMode(m.layer==='naturalLines'?'natural-line':m.kind);status('Place the new position on the ear; existing mark stays until placed.');};
   if(['line','area'].includes(m.kind)){

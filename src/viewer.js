@@ -169,7 +169,7 @@ export class EarViewer {
  }
  perforate(path,size,color){
   if(path.length<2)return;
-  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,radius=Math.max(.004,Math.min(.009,size*.23)),surfaceGap=.003,segments=[];let totalLength=0;
+  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,surfaceOffset=.0012,segments=[];let totalLength=0;
   for(let i=1;i<path.length;i++){
    const a=path[i-1],b=path[i],from=v(a.p),to=v(b.p),length=from.distanceTo(to);if(length<1e-5)continue;
    segments.push({a,b,from,to,length,start:totalLength,end:totalLength+length});totalLength+=length;
@@ -177,13 +177,16 @@ export class EarViewer {
   if(!segments.length)return;
   const pointAt=distance=>{
    const segment=segments.find(item=>distance<=item.end)??segments.at(-1),t=Math.max(0,Math.min(1,(distance-segment.start)/segment.length)),normal=v(segment.a.n).normalize().lerp(v(segment.b.n).normalize(),t).normalize();
-   return v(segment.a.p).lerp(v(segment.b.p),t).addScaledVector(normal,radius+surfaceGap);
+   return v(segment.a.p).lerp(v(segment.b.p),t).addScaledVector(normal,surfaceOffset);
   };
-  const material=new T.MeshStandardMaterial({color,roughness:.3,metalness:.02}),axis=new T.Vector3(0,1,0);
+  const material=new T.LineBasicMaterial({color,transparent:true,opacity:.98,depthTest:true,depthWrite:false});
   for(let start=0;start<totalLength;start+=period){
-   const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<radius*1.5)continue;
-   const from=pointAt(start),to=pointAt(end),direction=to.clone().sub(from),shaftLength=Math.max(.001,direction.length()-radius*2),geometry=new T.CapsuleGeometry(radius,shaftLength,5,16),dash=new T.Mesh(geometry,material);
-   dash.position.copy(from.add(to).multiplyScalar(.5));dash.quaternion.setFromUnitVectors(axis,direction.normalize());this.overlays.add(dash);
+   const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<.006)continue;
+   // Keep each dash as a surface-following polyline. This renders a flat mark
+   // directly over the skin instead of a raised capsule.
+   const sampleCount=Math.max(2,Math.ceil(length/.008)+1),positions=[];
+   for(let i=0;i<sampleCount;i++)positions.push(...pointAt(start+length*i/(sampleCount-1)).toArray());
+   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,material));
   }
  }
  pointLabelAnchor(anchor,name,size,pointSize,labelRotation=0){
@@ -193,7 +196,7 @@ export class EarViewer {
  renderAnnotations(project,selected,highlight=[]){
   this.clear();const active=new Set(highlight);
   for(const [layer,items] of [['markings',project.markings],['naturalLines',project.naturalLines??[]],['points',project.points]]){if(!this.visible[layer])continue;
-   for(const m of items){const color=this.curveEdit?.mark?.id===m.id?'#61d8e2':m.id===selected?'#ffffff':active.has(m.id)?'#ffe08a':m.color;
+   for(const m of items){const color=active.has(m.id)&&m.id!==selected?'#ffe08a':(m.color??'#70ced4');
     if(m.kind==='point'){this.addPointDome(m.anchors[0],m.size);}
     else if(layer==='naturalLines'){
      const source=this.activeCurveFor(m);
