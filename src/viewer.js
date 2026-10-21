@@ -11,7 +11,7 @@ T.Mesh.prototype.raycast=acceleratedRaycast;
 const v=a=>new T.Vector3().fromArray(a);
 export class EarViewer {
  constructor(container,onAction){
-  this.container=container;this.onAction=onAction;this.meshes=[];this.mode='orbit';this.drawing=[];this.curveEdit=null;this.curveDrag=null;this.curveSelection=null;this.visible={markings:true,naturalLines:true,points:true,labels:true};
+  this.container=container;this.onAction=onAction;this.onFrame=()=>{};this.meshes=[];this.mode='orbit';this.drawing=[];this.curveEdit=null;this.curveDrag=null;this.curveSelection=null;this.labelGesture=null;this.visible={markings:true,naturalLines:true,points:true,labels:true};
   this.scene=new T.Scene();this.scene.background=new T.Color('#0f1a21');
   this.camera=new T.PerspectiveCamera(32,1,.01,100);this.camera.position.set(0,0,6);
   this.renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,2));this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.35;container.append(this.renderer.domElement);
@@ -20,7 +20,7 @@ export class EarViewer {
   for(const [pos,intensity] of [[[3,4,5],3],[[-4,0,2],1.5],[[1,3,-4],2]]){const l=new T.DirectionalLight(0xffeee2,intensity);l.position.set(...pos);this.scene.add(l);}
   this.overlays=new T.Group();this.previewGroup=new T.Group();this.scene.add(this.overlays,this.previewGroup);this.ray=new T.Raycaster();this.ray.firstHitOnly=true;this.curveRay=new T.Raycaster();this.curveRay.firstHitOnly=true;
   this.resize=()=>{const w=container.clientWidth,h=container.clientHeight;this.camera.aspect=w/h;this.camera.updateProjectionMatrix();this.renderer.setSize(w,h);};window.addEventListener('resize',this.resize);this.resize();
-  this.renderer.setAnimationLoop(()=>{this.controls.update();this.renderer.render(this.scene,this.camera);});
+  this.renderer.setAnimationLoop(()=>{this.controls.update();this.renderer.render(this.scene,this.camera);this.onFrame();});
   const el=this.renderer.domElement;
   el.addEventListener('pointerdown',e=>{this.start=[e.clientX,e.clientY];if(e.button!==0)return;if(this.mode==='curve-edit'){const target=this.findCurveTarget(e.clientX,e.clientY);if(!target)return;this.curveSelection=target;this.curveDrag=target;el.setPointerCapture(e.pointerId);this.onAction({kind:'curve-begin',...target});return;}if(this.mode==='orbit')return;this.drawing=[];this.down=true;el.setPointerCapture(e.pointerId);if(this.isPathMode()){const anchor=this.hit(e.clientX,e.clientY);if(anchor)this.drawing=[anchor];return;}this.sample(e.clientX,e.clientY);});
   el.addEventListener('pointermove',e=>{if(this.curveDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.updateCurveTarget(this.curveDrag,anchor);this.onAction({kind:'curve-change',...this.curveDrag,anchor});}return;}if(!this.down||!this.isPathMode()||!this.drawing[0])return;const endpoint=this.hit(e.clientX,e.clientY);if(endpoint){this.drawing=[this.drawing[0],endpoint];this.updateDrawingPreview(...this.drawing);}});
@@ -72,6 +72,7 @@ export class EarViewer {
   this.triangles=meshes.reduce((n,m)=>n+(m.geometry.index?.count??m.geometry.attributes.position.count)/3,0);return this.triangles;
  }
  fit(back=false){this.controls.target.set(0,0,0);this.camera.position.set(0,0,back?-6.4:6.4);this.camera.up.set(0,1,0);this.controls.update();}
+ projectToScreen(point){const r=this.renderer.domElement.getBoundingClientRect(),p=new T.Vector3(...point).project(this.camera);return {x:r.left+(p.x+1)*r.width/2,y:r.top+(-p.y+1)*r.height/2,z:p.z};}
  setMode(mode){this.mode=mode;this.controls.enabled=mode==='orbit';this.renderer.domElement.style.cursor=mode==='orbit'?'grab':mode==='curve-edit'?'default':'crosshair';if(!this.isPathMode())this.clearDrawingPreview();}
  hit(x,y){const r=this.renderer.domElement.getBoundingClientRect();this.ray.setFromCamera(new T.Vector2((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1),this.camera);const h=this.ray.intersectObjects(this.meshes,false)[0];if(!h)return null;const n=(h.normal||h.face.normal).clone().transformDirection(h.object.matrixWorld);if(n.dot(this.ray.ray.direction)>0)n.negate();return {p:h.point.toArray(),n:n.toArray(),mesh:this.meshes.indexOf(h.object),face:h.faceIndex};}
  sample(x,y){const h=this.hit(x,y);if(h&&(!this.drawing.length||v(h.p).distanceTo(v(this.drawing.at(-1).p))>.006)){h.breakBefore=this.gap;this.gap=false;this.drawing.push(h);}else if(!h)this.gap=true;}
@@ -150,13 +151,44 @@ export class EarViewer {
   if(labelRotation){const angle=labelRotation*Math.PI/180,rotatedX=x.clone().multiplyScalar(Math.cos(angle)).addScaledVector(y,Math.sin(angle)),rotatedY=y.clone().multiplyScalar(Math.cos(angle)).addScaledVector(x,-Math.sin(angle));x=rotatedX;y=rotatedY;}
   return {x,y};
  }
+ labelMetrics(text,size,dot=false){
+  const lines=String(text??'').split(/\r?\n/).slice(0,2),longest=lines.reduce((max,line)=>Math.max(max,line.length),0);
+  return {lines,width:dot?size:Math.min(1.2,Math.max(.22,longest*size*.48)),height:dot?size:size*Math.max(1.6,lines.length*1.3)};
+ }
+ labelScreenGeometry(mark){
+  const anchor=mark?.anchors?.[0];if(!anchor)return null;
+  const normal=v(anchor.n).normalize(),{x,y}=this.labelAxes(normal,mark.labelRotation??0),{width,height}=this.labelMetrics(mark.name,mark.size*2.8),center=this.projectToScreen(anchor.p),corners=[
+   v(anchor.p).addScaledVector(x,width/2).addScaledVector(y,height/2),
+   v(anchor.p).addScaledVector(x,width/2).addScaledVector(y,-height/2),
+   v(anchor.p).addScaledVector(x,-width/2).addScaledVector(y,height/2),
+   v(anchor.p).addScaledVector(x,-width/2).addScaledVector(y,-height/2)
+  ].map(point=>this.projectToScreen(point));
+  const left=Math.min(...corners.map(point=>point.x)),right=Math.max(...corners.map(point=>point.x)),top=Math.min(...corners.map(point=>point.y)),bottom=Math.max(...corners.map(point=>point.y));
+  return {left,top,width:right-left,height:bottom-top,center};
+ }
+ startLabelGesture(mark,type,x,y){
+  const geometry=this.labelScreenGeometry(mark);if(!geometry)return false;
+  const center=geometry.center,{x:cx,y:cy}=center;
+  this.labelGesture={mark,type,centerX:cx,centerY:cy,startX:x,startY:y,startSize:mark.size,startRotation:mark.labelRotation??0,startRadius:Math.max(1,Math.hypot(x-cx,y-cy))};
+  this.onAction({kind:'label-begin',mark,type});return true;
+ }
+ updateLabelGesture(x,y){
+  const edit=this.labelGesture;if(!edit)return;
+  if(edit.type==='move'){
+   const anchor=this.hit(x,y);if(anchor){edit.mark.anchors[0]=anchor;this.onAction({kind:'label-change',mark:edit.mark});}
+   return;
+  }
+  const dx=x-edit.centerX,dy=y-edit.centerY,radius=Math.max(1,Math.hypot(dx,dy)),startAngle=Math.atan2(edit.startY-edit.centerY,edit.startX-edit.centerX),angle=Math.atan2(dy,dx);
+  let rotation=edit.startRotation+(angle-startAngle)*180/Math.PI;while(rotation>180)rotation-=360;while(rotation<-180)rotation+=360;
+  edit.mark.size=Math.max(.01,Math.min(.12,edit.startSize*radius/edit.startRadius));edit.mark.labelRotation=rotation;this.onAction({kind:'label-change',mark:edit.mark});
+ }
+ endLabelGesture(){if(!this.labelGesture)return;this.onAction({kind:'label-end',mark:this.labelGesture.mark});this.labelGesture=null;}
  stamp(anchor,text,color,size,dot=false,labelRotation=0){
   const target=this.meshes[anchor.mesh];if(!target)return;
-  const lines=String(text??'').split(/\r?\n/).slice(0,2),canvas=document.createElement('canvas');canvas.width=dot?64:1024;canvas.height=dot?64:lines.length>1?192:128;const c=canvas.getContext('2d');c.fillStyle=color;
+  const {lines,width,height}=this.labelMetrics(text,size,dot),canvas=document.createElement('canvas');canvas.width=dot?64:1024;canvas.height=dot?64:lines.length>1?192:128;const c=canvas.getContext('2d');c.fillStyle=color;
   if(dot){c.beginPath();c.arc(32,32,27,0,Math.PI*2);c.fill();}else{c.font='600 64px Segoe UI, sans-serif';c.textAlign='center';c.textBaseline='middle';const lineHeight=72,offset=(lines.length-1)*lineHeight/2;lines.forEach((line,index)=>c.fillText(line,512,canvas.height/2-offset+index*lineHeight,1000));}
   const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;
   const p=v(anchor.p),normal=v(anchor.n).normalize(),{x,y}=this.labelAxes(normal,labelRotation),matrix=new T.Matrix4().makeBasis(x,y,normal),rotation=new T.Euler().setFromRotationMatrix(matrix);
-  const longest=lines.reduce((max,line)=>Math.max(max,line.length),0),width=dot?size:Math.min(1.2,Math.max(.22,longest*size*.48)),height=dot?size:size*Math.max(1.6,lines.length*1.3);
   // Query only nearby triangles, keeping dense imported meshes responsive.
   const radius=Math.hypot(width,height,.16)/2,sphere=new T.Sphere(p,radius),positions=[];
   target.geometry.boundsTree.shapecast({intersectsBounds:box=>box.intersectsSphere(sphere),intersectsTriangle:tri=>{const faceNormal=tri.getNormal(new T.Vector3());if(faceNormal.dot(normal)>.15)for(const q of [tri.a,tri.b,tri.c])positions.push(q.x,q.y,q.z);return false;}});
@@ -169,7 +201,7 @@ export class EarViewer {
  }
  perforate(path,size,color){
   if(path.length<2)return;
-  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,surfaceOffset=.0012,segments=[];let totalLength=0;
+  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,surfaceOffset=.005,segments=[];let totalLength=0;
   for(let i=1;i<path.length;i++){
    const a=path[i-1],b=path[i],from=v(a.p),to=v(b.p),length=from.distanceTo(to);if(length<1e-5)continue;
    segments.push({a,b,from,to,length,start:totalLength,end:totalLength+length});totalLength+=length;
@@ -182,8 +214,7 @@ export class EarViewer {
   const material=new T.LineBasicMaterial({color,transparent:true,opacity:.98,depthTest:true,depthWrite:false});
   for(let start=0;start<totalLength;start+=period){
    const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<.006)continue;
-   // Keep each dash as a surface-following polyline. This renders a flat mark
-   // directly over the skin instead of a raised capsule.
+    // Keep each dash surface-following while lifting it just above the skin.
    const sampleCount=Math.max(2,Math.ceil(length/.008)+1),positions=[];
    for(let i=0;i<sampleCount;i++)positions.push(...pointAt(start+length*i/(sampleCount-1)).toArray());
    const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,material));
