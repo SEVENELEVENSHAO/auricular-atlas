@@ -11,7 +11,7 @@ T.Mesh.prototype.raycast=acceleratedRaycast;
 const v=a=>new T.Vector3().fromArray(a);
 export class EarViewer {
  constructor(container,onAction){
-  this.container=container;this.onAction=onAction;this.onFrame=()=>{};this.meshes=[];this.mode='orbit';this.drawing=[];this.curveEdit=null;this.curveDrag=null;this.curveSelection=null;this.labelGesture=null;this.visible={markings:true,naturalLines:true,points:true,labels:true};
+  this.container=container;this.onAction=onAction;this.onFrame=()=>{};this.meshes=[];this.mode='orbit';this.drawing=[];this.curveEdit=null;this.curveDrag=null;this.curveSelection=null;this.labelGesture=null;this.pointTarget=null;this.pointDrag=null;this.pointPulseMeshes=[];this.visible={markings:true,naturalLines:true,points:true,labels:true};
   this.scene=new T.Scene();this.scene.background=new T.Color('#0f1a21');
   this.camera=new T.PerspectiveCamera(32,1,.01,100);this.camera.position.set(0,0,6);
   this.renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,2));this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.35;container.append(this.renderer.domElement);
@@ -20,12 +20,12 @@ export class EarViewer {
   for(const [pos,intensity] of [[[3,4,5],3],[[-4,0,2],1.5],[[1,3,-4],2]]){const l=new T.DirectionalLight(0xffeee2,intensity);l.position.set(...pos);this.scene.add(l);}
   this.overlays=new T.Group();this.previewGroup=new T.Group();this.scene.add(this.overlays,this.previewGroup);this.ray=new T.Raycaster();this.ray.firstHitOnly=true;this.curveRay=new T.Raycaster();this.curveRay.firstHitOnly=true;
   this.resize=()=>{const w=container.clientWidth,h=container.clientHeight;this.camera.aspect=w/h;this.camera.updateProjectionMatrix();this.renderer.setSize(w,h);};window.addEventListener('resize',this.resize);this.resize();
-  this.renderer.setAnimationLoop(()=>{this.controls.update();this.renderer.render(this.scene,this.camera);this.onFrame();});
+  this.renderer.setAnimationLoop(()=>{this.controls.update();this.updatePointPulse();this.renderer.render(this.scene,this.camera);this.onFrame();});
   const el=this.renderer.domElement;
-  el.addEventListener('pointerdown',e=>{this.start=[e.clientX,e.clientY];if(e.button!==0)return;if(this.mode==='curve-edit'){const target=this.findCurveTarget(e.clientX,e.clientY);if(!target)return;this.curveSelection=target;this.curveDrag=target;el.setPointerCapture(e.pointerId);this.onAction({kind:'curve-begin',...target});return;}if(this.mode==='orbit')return;this.drawing=[];this.down=true;el.setPointerCapture(e.pointerId);if(this.isPathMode()){const anchor=this.hit(e.clientX,e.clientY);if(anchor)this.drawing=[anchor];return;}this.sample(e.clientX,e.clientY);});
-  el.addEventListener('pointermove',e=>{if(this.curveDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.updateCurveTarget(this.curveDrag,anchor);this.onAction({kind:'curve-change',...this.curveDrag,anchor});}return;}if(!this.down||!this.isPathMode()||!this.drawing[0])return;const endpoint=this.hit(e.clientX,e.clientY);if(endpoint){this.drawing=[this.drawing[0],endpoint];this.updateDrawingPreview(...this.drawing);}});
-  el.addEventListener('pointerup',e=>{if(this.curveDrag){this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;return;}if(this.down){this.down=false;if(this.isPathMode()){const start=this.drawing[0],end=this.hit(e.clientX,e.clientY);this.clearDrawingPreview();if(start&&end&&v(start.p).distanceTo(v(end.p))>.02)this.onAction({kind:this.mode,anchors:[start,end]});}else if(this.drawing.length)this.onAction({kind:this.mode,anchors:this.drawing});this.drawing=[];}else if(this.mode==='orbit'&&Math.hypot(e.clientX-this.start[0],e.clientY-this.start[1])<4){const h=this.hit(e.clientX,e.clientY);if(h)this.onAction({kind:'select',anchor:h});}});
-  el.addEventListener('pointercancel',()=>{if(this.curveDrag)this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;this.down=false;this.drawing=[];this.clearDrawingPreview();});
+  el.addEventListener('pointerdown',e=>{this.start=[e.clientX,e.clientY];if(e.button!==0)return;if(this.mode==='curve-edit'){const target=this.findCurveTarget(e.clientX,e.clientY);if(!target)return;this.curveSelection=target;this.curveDrag=target;el.setPointerCapture(e.pointerId);this.onAction({kind:'curve-begin',...target});return;}if(this.mode==='point-move'){if(!this.pointTarget)return;const screen=this.projectToScreen(this.pointTarget.anchors[0].p);if(Math.hypot(screen.x-e.clientX,screen.y-e.clientY)>30)return;this.pointDrag={pointerId:e.pointerId};el.setPointerCapture(e.pointerId);return;}if(this.mode==='orbit')return;this.drawing=[];this.down=true;el.setPointerCapture(e.pointerId);if(this.isPathMode()){const anchor=this.hit(e.clientX,e.clientY);if(anchor)this.drawing=[anchor];return;}this.sample(e.clientX,e.clientY);});
+  el.addEventListener('pointermove',e=>{if(this.curveDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.updateCurveTarget(this.curveDrag,anchor);this.onAction({kind:'curve-change',...this.curveDrag,anchor});}return;}if(this.pointDrag){const anchor=this.hit(e.clientX,e.clientY);if(anchor){this.pointTarget.anchors[0]=anchor;this.onAction({kind:'point-move-change',mark:this.pointTarget,anchor});}return;}if(!this.down||!this.isPathMode()||!this.drawing[0])return;const endpoint=this.hit(e.clientX,e.clientY);if(endpoint){this.drawing=[this.drawing[0],endpoint];this.updateDrawingPreview(...this.drawing);}});
+  el.addEventListener('pointerup',e=>{if(this.curveDrag){this.onAction({kind:'curve-end',...this.curveDrag});this.curveDrag=null;return;}if(this.pointDrag){this.onAction({kind:'point-move-end',mark:this.pointTarget});this.pointDrag=null;return;}if(this.down){this.down=false;if(this.isPathMode()){const start=this.drawing[0],end=this.hit(e.clientX,e.clientY);this.clearDrawingPreview();if(start&&end&&v(start.p).distanceTo(v(end.p))>.02)this.onAction({kind:this.mode,anchors:[start,end]});}else if(this.drawing.length)this.onAction({kind:this.mode,anchors:this.drawing});this.drawing=[];}else if(this.mode==='orbit'&&Math.hypot(e.clientX-this.start[0],e.clientY-this.start[1])<4){const h=this.hit(e.clientX,e.clientY);if(h)this.onAction({kind:'select',anchor:h});}});
+  el.addEventListener('pointercancel',()=>{if(this.curveDrag)this.onAction({kind:'curve-end',...this.curveDrag});if(this.pointDrag)this.onAction({kind:'point-move-end',mark:this.pointTarget});this.curveDrag=null;this.pointDrag=null;this.down=false;this.drawing=[];this.clearDrawingPreview();});
  }
  isPathMode(){return ['line','natural-line','area'].includes(this.mode);}
  clearDrawingPreview(){for(const item of this.previewGroup.children){item.geometry?.dispose();item.material?.dispose();}this.previewGroup.clear();}
@@ -73,8 +73,12 @@ export class EarViewer {
  }
  fit(back=false){this.controls.target.set(0,0,0);this.camera.position.set(0,0,back?-6.4:6.4);this.camera.up.set(0,1,0);this.controls.update();}
  projectToScreen(point){const r=this.renderer.domElement.getBoundingClientRect(),p=new T.Vector3(...point).project(this.camera);return {x:r.left+(p.x+1)*r.width/2,y:r.top+(-p.y+1)*r.height/2,z:p.z};}
- setMode(mode){this.mode=mode;this.controls.enabled=mode==='orbit';this.renderer.domElement.style.cursor=mode==='orbit'?'grab':mode==='curve-edit'?'default':'crosshair';if(!this.isPathMode())this.clearDrawingPreview();}
+ setMode(mode){this.mode=mode;this.controls.enabled=mode==='orbit';this.renderer.domElement.style.cursor=mode==='orbit'?'grab':mode==='curve-edit'?'default':mode==='point-move'?'move':'crosshair';if(mode!=='point-move')this.pointDrag=null;if(!this.isPathMode())this.clearDrawingPreview();}
+ startPointMove(mark){this.pointTarget=mark;this.pointDrag=null;}
+ stopPointMove(){this.pointTarget=null;this.pointDrag=null;if(this.mode==='point-move')this.setMode('orbit');}
  hit(x,y){const r=this.renderer.domElement.getBoundingClientRect();this.ray.setFromCamera(new T.Vector2((x-r.left)/r.width*2-1,-(y-r.top)/r.height*2+1),this.camera);const h=this.ray.intersectObjects(this.meshes,false)[0];if(!h)return null;const n=(h.normal||h.face.normal).clone().transformDirection(h.object.matrixWorld);if(n.dot(this.ray.ray.direction)>0)n.negate();return {p:h.point.toArray(),n:n.toArray(),mesh:this.meshes.indexOf(h.object),face:h.faceIndex};}
+ nearestMark(anchor,marks){let best=null,bestDistance=Infinity;for(const mark of marks){const candidates=mark.kind==='line'&&mark.curve?.runs?.length?this.curvePaths(mark).flat():mark.anchors??[];for(const candidate of candidates){const distance=v(candidate.p).distanceTo(v(anchor.p));if(distance<bestDistance){bestDistance=distance;best=mark;}}}return best?{mark:best,distance:bestDistance}:null;}
+ markScreenPosition(mark){const anchors=mark?.anchors??[];if(!anchors.length)return {x:window.innerWidth/2,y:window.innerHeight/2};const anchor=anchors[Math.floor(anchors.length/2)];return this.projectToScreen(anchor.p);}
  sample(x,y){const h=this.hit(x,y);if(h&&(!this.drawing.length||v(h.p).distanceTo(v(this.drawing.at(-1).p))>.006)){h.breakBefore=this.gap;this.gap=false;this.drawing.push(h);}else if(!h)this.gap=true;}
  curveRuns(mark){
   if(mark.curve?.runs?.length)return mark.curve.runs;
@@ -139,11 +143,16 @@ export class EarViewer {
   const anchors=[];for(const run of curve?.runs??[]){for(let i=0;i<(run.knots??[]).length;i++){const a=run.knots[i].anchor??run.knots[i];anchors.push({...a,breakBefore:anchors.length>0&&i===0});}}
   if(anchors[0])delete anchors[0].breakBefore;return anchors;
  }
- clear(){const geometries=new Set(),materials=new Set(),textures=new Set();this.overlays.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const material of Array.isArray(o.material)?o.material:[o.material])if(material){materials.add(material);if(material.map)textures.add(material.map);}});for(const texture of textures)texture.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();this.overlays.clear();}
+ clear(){const geometries=new Set(),materials=new Set(),textures=new Set();this.overlays.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const material of Array.isArray(o.material)?o.material:[o.material])if(material){materials.add(material);if(material.map)textures.add(material.map);}});for(const texture of textures)texture.dispose();for(const material of materials)material.dispose();for(const geometry of geometries)geometry.dispose();this.overlays.clear();this.pointPulseMeshes=[];}
  pointDomeRadius(size){return Math.max(.007,Math.min(.021,size*.48))*.75;}
- addPointDome(anchor,size){
-  const normal=v(anchor.n).normalize(),radius=this.pointDomeRadius(size),geometry=new T.SphereGeometry(radius,18,10,0,Math.PI*2,0,Math.PI/2),material=new T.MeshStandardMaterial({color:0xe23b46,roughness:.42,metalness:.02}),dome=new T.Mesh(geometry,material);
-  dome.position.copy(v(anchor.p).addScaledVector(normal,.002));dome.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),normal);this.overlays.add(dome);
+ addPointDome(anchor,size,color='#e23b46',pulse=false){
+  const normal=v(anchor.n).normalize(),radius=this.pointDomeRadius(size),geometry=new T.SphereGeometry(radius,18,10,0,Math.PI*2,0,Math.PI/2),material=new T.MeshStandardMaterial({color,roughness:.42,metalness:.02,emissive:pulse?'#1f6b40':'#000000',emissiveIntensity:pulse?.45:0}),dome=new T.Mesh(geometry,material);
+  dome.position.copy(v(anchor.p).addScaledVector(normal,.002));dome.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),normal);this.overlays.add(dome);if(pulse)this.pointPulseMeshes.push({mesh:dome,base:new T.Color(color)});
+ }
+ updatePointPulse(){
+  if(!this.pointPulseMeshes.length)return;
+  const phase=(Math.sin(performance.now()/170)+1)/2;
+  for(const entry of this.pointPulseMeshes){entry.mesh.material.color.copy(entry.base).lerp(new T.Color('#59ef96'),.48+.38*phase);entry.mesh.material.emissiveIntensity=.25+.5*phase;entry.mesh.scale.setScalar(1+.08*phase);}
  }
  labelAxes(normal,labelRotation=0){
   const up=new T.Vector3(0,1,0);if(Math.abs(normal.dot(up))>.95)up.set(1,0,0);
@@ -156,6 +165,7 @@ export class EarViewer {
   return {lines,width:dot?size:Math.min(1.2,Math.max(.22,longest*size*.48)),height:dot?size:size*Math.max(1.6,lines.length*1.3)};
  }
  labelScreenGeometry(mark){
+  if(mark?.kind==='point')return this.pointLabelScreenGeometry(mark);
   const anchor=mark?.anchors?.[0];if(!anchor)return null;
   const normal=v(anchor.n).normalize(),{x,y}=this.labelAxes(normal,mark.labelRotation??0),{width,height}=this.labelMetrics(mark.name,mark.size*2.8),center=this.projectToScreen(anchor.p),corners=[
    v(anchor.p).addScaledVector(x,width/2).addScaledVector(y,height/2),
@@ -169,18 +179,23 @@ export class EarViewer {
  startLabelGesture(mark,type,x,y){
   const geometry=this.labelScreenGeometry(mark);if(!geometry)return false;
   const center=geometry.center,{x:cx,y:cy}=center;
-  this.labelGesture={mark,type,centerX:cx,centerY:cy,startX:x,startY:y,startSize:mark.size,startRotation:mark.labelRotation??0,startRadius:Math.max(1,Math.hypot(x-cx,y-cy))};
+  const pointPlacement=mark.kind==='point'?this.pointLabelPlacement(mark.anchors[0],mark.name,mark.labelSize??.045,mark.size,mark.labelRotation??0,mark.labelOffset):null;
+  this.labelGesture={mark,type,centerX:cx,centerY:cy,startX:x,startY:y,startSize:mark.kind==='point'?(mark.labelSize??.045):mark.size,startRotation:mark.labelRotation??0,startRadius:Math.max(1,Math.hypot(x-cx,y-cy)),anchorPoint:mark.kind==='point'?v(mark.anchors[0].p):null,tangentX:pointPlacement?.x,tangentY:pointPlacement?.y};
   this.onAction({kind:'label-begin',mark,type});return true;
  }
  updateLabelGesture(x,y){
   const edit=this.labelGesture;if(!edit)return;
   if(edit.type==='move'){
+   if(edit.mark.kind==='point'){
+    const hit=this.hit(x,y);if(hit&&edit.anchorPoint&&edit.tangentX&&edit.tangentY){const delta=v(hit.p).sub(edit.anchorPoint);edit.mark.labelOffset=[delta.dot(edit.tangentX),delta.dot(edit.tangentY)];this.onAction({kind:'label-change',mark:edit.mark});}
+    return;
+   }
    const anchor=this.hit(x,y);if(anchor){edit.mark.anchors[0]=anchor;this.onAction({kind:'label-change',mark:edit.mark});}
    return;
   }
   const dx=x-edit.centerX,dy=y-edit.centerY,radius=Math.max(1,Math.hypot(dx,dy)),startAngle=Math.atan2(edit.startY-edit.centerY,edit.startX-edit.centerX),angle=Math.atan2(dy,dx);
-  let rotation=edit.startRotation+(angle-startAngle)*180/Math.PI;while(rotation>180)rotation-=360;while(rotation<-180)rotation+=360;
-  edit.mark.size=Math.max(.01,Math.min(.12,edit.startSize*radius/edit.startRadius));edit.mark.labelRotation=rotation;this.onAction({kind:'label-change',mark:edit.mark});
+  let rotation=edit.startRotation-(angle-startAngle)*180/Math.PI;while(rotation>180)rotation-=360;while(rotation<-180)rotation+=360;
+  const size=Math.max(.01,Math.min(.12,edit.startSize*radius/edit.startRadius));if(edit.mark.kind==='point')edit.mark.labelSize=size;else edit.mark.size=size;edit.mark.labelRotation=rotation;this.onAction({kind:'label-change',mark:edit.mark});
  }
  endLabelGesture(){if(!this.labelGesture)return;this.onAction({kind:'label-end',mark:this.labelGesture.mark});this.labelGesture=null;}
  stamp(anchor,text,color,size,dot=false,labelRotation=0){
@@ -199,50 +214,62 @@ export class EarViewer {
   const mat=new T.MeshBasicMaterial({map:texture,transparent:true,depthTest:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4,side:T.FrontSide});
   const mesh=new T.Mesh(geom,mat);this.overlays.add(mesh);
  }
- perforate(path,size,color){
+ stampFloating(anchor,text,color,size,pointSize,labelRotation=0,labelOffset){
+  const placement=this.pointLabelPlacement(anchor,text,size,pointSize,labelRotation,labelOffset),canvas=document.createElement('canvas');canvas.width=1024;canvas.height=String(text??'').includes('\n')?192:128;const c=canvas.getContext('2d');c.fillStyle=color;c.font='600 64px Segoe UI, sans-serif';c.textAlign='center';c.textBaseline='middle';const lines=String(text??'').split(/\r?\n/).slice(0,2),lineHeight=72,offset=(lines.length-1)*lineHeight/2;lines.forEach((line,index)=>c.fillText(line,512,canvas.height/2-offset+index*lineHeight,1000));
+  const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;const geometry=new T.PlaneGeometry(placement.width,placement.height),material=new T.MeshBasicMaterial({map:texture,transparent:true,depthTest:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-6,side:T.DoubleSide}),mesh=new T.Mesh(geometry,material);mesh.position.copy(placement.position);mesh.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(placement.x,placement.y,placement.normal));this.overlays.add(mesh);
+ }
+ lineRadius(thickness=3){return [.0012,.0018,.0025,.0034,.0045][Math.max(1,Math.min(5,Number(thickness)||3))-1];}
+ tube(path,color,thickness=3){
   if(path.length<2)return;
-  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,surfaceOffset=.005,segments=[];let totalLength=0;
+  const points=path.map((anchor)=>v(anchor.p).addScaledVector(v(anchor.n).normalize(),.005));
+  const curve=new T.CatmullRomCurve3(points),geometry=new T.TubeGeometry(curve,Math.max(1,points.length*2),this.lineRadius(thickness),5,false),material=new T.MeshBasicMaterial({color,transparent:true,opacity:.98,depthTest:true,depthWrite:false});
+  this.overlays.add(new T.Mesh(geometry,material));
+ }
+ perforate(path,size,color,thickness=3){
+  if(path.length<2)return;
+  const dashLength=Math.max(.018,Math.min(.038,size*1.05)),period=dashLength*1.9,segments=[];let totalLength=0;
   for(let i=1;i<path.length;i++){
    const a=path[i-1],b=path[i],from=v(a.p),to=v(b.p),length=from.distanceTo(to);if(length<1e-5)continue;
    segments.push({a,b,from,to,length,start:totalLength,end:totalLength+length});totalLength+=length;
   }
   if(!segments.length)return;
-  const pointAt=distance=>{
-   const segment=segments.find(item=>distance<=item.end)??segments.at(-1),t=Math.max(0,Math.min(1,(distance-segment.start)/segment.length)),normal=v(segment.a.n).normalize().lerp(v(segment.b.n).normalize(),t).normalize();
-   return v(segment.a.p).lerp(v(segment.b.p),t).addScaledVector(normal,surfaceOffset);
-  };
-  const material=new T.LineBasicMaterial({color,transparent:true,opacity:.98,depthTest:true,depthWrite:false});
-  for(let start=0;start<totalLength;start+=period){
-   const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<.006)continue;
-    // Keep each dash surface-following while lifting it just above the skin.
-   const sampleCount=Math.max(2,Math.ceil(length/.008)+1),positions=[];
-   for(let i=0;i<sampleCount;i++)positions.push(...pointAt(start+length*i/(sampleCount-1)).toArray());
-   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,material));
-  }
+  const pointAt=distance=>{const segment=segments.find((item)=>distance<=item.end)??segments.at(-1),t=Math.max(0,Math.min(1,(distance-segment.start)/segment.length)),normal=v(segment.a.n).normalize().lerp(v(segment.b.n).normalize(),t).normalize();return {p:v(segment.a.p).lerp(v(segment.b.p),t).addScaledVector(normal,.005).toArray(),n:normal.toArray()};};
+  for(let start=0;start<totalLength;start+=period){const end=Math.min(start+dashLength,totalLength),length=end-start;if(length<.006)continue;const sampleCount=Math.max(2,Math.ceil(length/.008)+1),dash=[];for(let i=0;i<sampleCount;i++)dash.push(pointAt(start+length*i/(sampleCount-1)));this.tube(dash,color,thickness);}
  }
- pointLabelAnchor(anchor,name,size,pointSize,labelRotation=0){
-  const normal=v(anchor.n).normalize(),tangent=this.labelAxes(normal).y,lines=String(name).split(/\r?\n/).slice(0,2),longest=lines.reduce((n,line)=>Math.max(n,line.length),0),labelWidth=Math.min(1.2,Math.max(.22,longest*size*.48)),labelHeight=size*Math.max(1.6,lines.length*1.3),angle=labelRotation*Math.PI/180,halfHeight=Math.abs(Math.cos(angle))*labelHeight/2+Math.abs(Math.sin(angle))*labelWidth/2,offset=this.pointDomeRadius(pointSize)+halfHeight+.004,center=v(anchor.p).addScaledVector(tangent,offset),origin=center.addScaledVector(normal,.18);
-  this.ray.set(origin,normal.clone().negate());const hit=this.ray.intersectObject(this.meshes[anchor.mesh],false)[0];return hit?{...anchor,p:hit.point.toArray(),n:normal.toArray()}:null;
+ pointLabelPlacement(anchor,name,size,pointSize,labelRotation=0,labelOffset){
+  const normal=v(anchor.n).normalize(),{x,y}=this.labelAxes(normal,labelRotation),{width,height}=this.labelMetrics(name,size);
+  const domeRadius=this.pointDomeRadius(pointSize),defaultOffset=[0,height/2+domeRadius+.012],offset=Array.isArray(labelOffset)&&labelOffset.length===2&&labelOffset.every(Number.isFinite)?labelOffset:defaultOffset;
+  // Keep the point visible: place the label north of the dome at its tangent base level.
+  return {position:v(anchor.p).addScaledVector(normal,domeRadius+.006).addScaledVector(x,offset[0]).addScaledVector(y,offset[1]),normal,x,y,width,height,offset};
+ }
+ pointLabelScreenGeometry(mark){
+  const anchor=mark?.anchors?.[0];if(!anchor)return null;
+  const placement=this.pointLabelPlacement(anchor,mark.name,mark.labelSize??.045,mark.size,mark.labelRotation??0,mark.labelOffset),corners=[
+   placement.position.clone().addScaledVector(placement.x,placement.width/2).addScaledVector(placement.y,placement.height/2),
+   placement.position.clone().addScaledVector(placement.x,placement.width/2).addScaledVector(placement.y,-placement.height/2),
+   placement.position.clone().addScaledVector(placement.x,-placement.width/2).addScaledVector(placement.y,placement.height/2),
+   placement.position.clone().addScaledVector(placement.x,-placement.width/2).addScaledVector(placement.y,-placement.height/2)
+  ].map((point)=>this.projectToScreen(point));
+  const left=Math.min(...corners.map((point)=>point.x)),right=Math.max(...corners.map((point)=>point.x)),top=Math.min(...corners.map((point)=>point.y)),bottom=Math.max(...corners.map((point)=>point.y));
+  return {left,top,width:right-left,height:bottom-top,center:this.projectToScreen(placement.position)};
  }
  renderAnnotations(project,selected,highlight=[]){
   this.clear();const active=new Set(highlight);
   for(const [layer,items] of [['markings',project.markings],['naturalLines',project.naturalLines??[]],['points',project.points]]){if(!this.visible[layer])continue;
-   for(const m of items){const color=active.has(m.id)&&m.id!==selected?'#ffe08a':(m.color??'#70ced4');
-    if(m.kind==='point'){this.addPointDome(m.anchors[0],m.size);}
+   for(const m of items){const color=active.has(m.id)&&m.id!==selected?'#ffe08a':(m.color??'#70ced4'),thickness=m.thickness??3;
+    if(m.kind==='point'){this.addPointDome(m.anchors[0],m.size,m.color??'#e23b46',m.id===selected);}
     else if(layer==='naturalLines'){
      const source=this.activeCurveFor(m);
-     if(source){for(const path of this.curvePaths(source)){if(path.length<2)continue;const positions=[];for(const a of path)positions.push(...v(a.p).addScaledVector(v(a.n),.003).toArray());const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,new T.LineBasicMaterial({color,transparent:true,opacity:.96,depthTest:true})));}}
-     else {const byRun=[];let run=[];for(const a of m.anchors){if(a.breakBefore&&run.length){byRun.push(run);run=[];}run.push(a);}if(run.length)byRun.push(run);for(const anchors of byRun){if(anchors.length<2)continue;const positions=[];for(const a of anchors)positions.push(...v(a.p).addScaledVector(v(a.n),.003).toArray());const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));this.overlays.add(new T.Line(geometry,new T.LineBasicMaterial({color,transparent:true,opacity:.96,depthTest:true})));}}
+     if(source){for(const path of this.curvePaths(source))this.tube(path,color,thickness);}
+     else {const byRun=[];let run=[];for(const a of m.anchors){if(a.breakBefore&&run.length){byRun.push(run);run=[];}run.push(a);}if(run.length)byRun.push(run);for(const anchors of byRun)this.tube(anchors,color,thickness);}
     }
     else if(m.kind==='line'||m.kind==='area'){
-     const source=this.activeCurveFor(m),paths=source?this.curvePaths(source):[m.anchors];for(const path of paths)this.perforate(path,m.size,color);
+     const source=this.activeCurveFor(m),paths=source?this.curvePaths(source):[m.anchors];for(const path of paths)this.perforate(path,m.size,color,thickness);
     }
     if(this.visible.labels&&m.name&&m.kind!=='line'){
      let anchor=m.anchors[Math.floor(m.anchors.length/2)];
-     if(m.kind==='point'){
-      anchor=this.pointLabelAnchor(anchor,m.name,.07,m.size,m.labelRotation??0);if(!anchor)continue;
-     }
-     this.stamp(anchor,m.name,color,m.kind==='point'?.07:m.size*2.8,false,m.labelRotation??0);
+     if(m.kind==='point')this.stampFloating(anchor,m.name,color,m.labelSize??.045,m.size,m.labelRotation??0,m.labelOffset);
+     else this.stamp(anchor,m.name,color,m.size*2.8,false,m.labelRotation??0);
     }
    }
   }

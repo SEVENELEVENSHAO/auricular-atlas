@@ -9,6 +9,9 @@ export function validateProject(p,modelId){
  for(const m of [...p.points,...p.markings,...p.naturalLines]){
   if(typeof m.id!=='string'||ids.has(m.id)||typeof m.name!=='string'||m.name.length>300||!/^#[0-9a-f]{6}$/i.test(m.color)||!Number.isFinite(m.size)||m.size<.001||m.size>1||!Array.isArray(m.anchors)||m.anchors.length<1||m.anchors.length>20000)throw Error('Invalid annotation data.');
   if(m.labelRotation!==undefined&&(!Number.isFinite(m.labelRotation)||m.labelRotation<-180||m.labelRotation>180))throw Error('Invalid label rotation.');
+  if(m.labelOffset!==undefined&&(!Array.isArray(m.labelOffset)||m.labelOffset.length!==2||!m.labelOffset.every(Number.isFinite)||m.labelOffset.some(v=>Math.abs(v)>2)))throw Error('Invalid label offset.');
+  if(m.thickness!==undefined&&(!Number.isInteger(m.thickness)||m.thickness<1||m.thickness>5))throw Error('Invalid line thickness.');
+  if(m.lineType!==undefined&&!['perforated','natural'].includes(m.lineType))throw Error('Invalid line type.');
   ids.add(m.id);
   for(const a of m.anchors)if(!validAnchor(a))throw Error('Invalid surface anchor.');
   if(m.curve!==undefined){

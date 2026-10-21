@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
 }
 
-layout.buildDirectory.set(file('build-output-staging'))
+layout.buildDirectory.set(file(project.findProperty('atlasBuildDir') ?: 'build-output-staging'))
 
 android {
     namespace 'com.sevenelevenshao.auricularatlas'
@@ -10,7 +10,7 @@ android {
 
     sourceSets {
         main {
-            assets.srcDirs = ['atlas-assets-staging']
+            assets.srcDirs = [project.findProperty('atlasAssetsDir') ?: 'atlas-assets-staging']
         }
     }
 

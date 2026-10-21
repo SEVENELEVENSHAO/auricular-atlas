@@ -21,7 +21,10 @@ $env:ANDROID_HOME = Resolve-FirstExistingPath @(
 if (-not $env:ANDROID_SDK_ROOT) { $env:ANDROID_SDK_ROOT = $env:ANDROID_HOME }
 
 Write-Output 'Building offline web assets for Android...'
-& npm.cmd run build -- --outDir android/app/atlas-assets-staging
+$buildStamp = [DateTime]::UtcNow.ToString('yyyyMMddHHmmss')
+$assetDirName = "atlas-assets-release-$buildStamp"
+$buildDirName = "build-output-release-$buildStamp"
+& npm.cmd run build -- --outDir (Join-Path 'android/app' $assetDirName)
 if ($LASTEXITCODE) { throw 'Web asset build failed' }
 
 Write-Output 'Assembling debug APK...'
@@ -30,10 +33,10 @@ $gradleExe = Resolve-FirstExistingPath @(
     'C:\Users\ASUS\.gradle\wrapper\dists\gradle-8.14.3-all\10utluxaxniiv4wxiphsi49nj\gradle-8.14.3\bin\gradle.bat',
     'D:\gradle\wrapper\dists\gradle-8.11.1-bin\eac4u065zwes5phgltp5f9b9e\gradle-8.11.1\bin\gradle.bat'
 ) 'Gradle'
-& $gradleExe -p .\android --no-daemon assembleDebug
+& $gradleExe -p .\android --no-daemon "-PatlasAssetsDir=$assetDirName" "-PatlasBuildDir=$buildDirName" assembleDebug
 if ($LASTEXITCODE) { throw 'Android APK build failed' }
 
-$apk = Join-Path $PSScriptRoot 'android\app\build-output-staging\outputs\apk\debug\app-debug.apk'
+$apk = Join-Path $PSScriptRoot "android\app\$buildDirName\outputs\apk\debug\app-debug.apk"
 $copy = Join-Path $PSScriptRoot 'Auricular-Atlas.apk'
 Copy-Item -LiteralPath $apk -Destination $copy -Force
 Get-FileHash -Algorithm SHA256 -LiteralPath $copy | Format-List Algorithm, Hash, Path
