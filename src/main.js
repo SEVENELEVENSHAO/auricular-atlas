@@ -1,6 +1,6 @@
 import './style.css';
 import { EarViewer } from './viewer.js';
-import { readProject, saveProject, validateProject, readModel, saveModel, fingerprint } from './storage.js';
+import { KEY, readProject, saveProject, validateProject, readModel, saveModel, fingerprint } from './storage.js';
 
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -26,11 +26,12 @@ let labelEditHistoryPending = false;
 let editMode = false;
 let inspectorSnapshot = false;
 let pointMoveSnapshot = false;
+let inspectorPosition = null;
 
 const status = (text) => { $('#status').textContent = text; };
 const allMarks = () => project ? [...project.points, ...project.markings, ...(project.naturalLines ?? [])] : [];
 const current = () => allMarks().find((mark) => mark.id === selected);
-const lineType = (mark) => mark.lineType ?? (mark.layer === 'naturalLines' ? 'natural' : 'perforated');
+const lineType = (mark) => mark.lineType === 'natural' || (mark.lineType == null && mark.layer === 'naturalLines') ? 'natural' : 'flat';
 const lineThickness = (mark) => Math.max(1, Math.min(5, Number(mark.thickness) || 3));
 const lineSize = (thickness) => lineThicknessSizes[Math.max(1, Math.min(5, Number(thickness) || 3)) - 1];
 
@@ -91,13 +92,14 @@ function setMode(mode) {
   const hint = {
     orbit: 'Drag to rotate · Scroll to zoom · Right-drag to pan',
     point: 'Click and drag on the ear to place a point',
-    line: 'Drag from the start point to the end point',
+    line: 'Drag along the ear to draw a smooth line',
     label: 'Click the ear to place a floating label',
     'curve-edit': 'Drag the curve nodes or handles along the ear surface',
     'point-move': 'Drag the selected green point to move it'
   }[mode] ?? 'Drag on the ear';
   $('#mode-hint').textContent = hint;
   document.querySelectorAll('[data-mode]').forEach((button) => button.setAttribute('aria-pressed', button.dataset.mode === mode));
+  document.querySelectorAll('[data-create]').forEach((button) => button.setAttribute('aria-pressed', button.dataset.create === mode));
   updateOverlays();
 }
 
@@ -141,12 +143,75 @@ function updateMarkInspectorPosition() {
   if (!project) return;
   const mark = current();
   if (!inspector || inspector.hidden || !mark || !editMode) return;
-  const point = viewer.markScreenPosition(mark);
   const width = inspector.offsetWidth || 286;
   const height = inspector.offsetHeight || 360;
+  const maxLeft = Math.max(12, window.innerWidth - width - 12);
+  const maxTop = Math.max(12, window.innerHeight - height - 12);
+  if (inspectorPosition) {
+    inspectorPosition = {
+      left: Math.max(12, Math.min(maxLeft, inspectorPosition.left)),
+      top: Math.max(12, Math.min(maxTop, inspectorPosition.top))
+    };
+    inspector.style.left = `${inspectorPosition.left}px`;
+    inspector.style.top = `${inspectorPosition.top}px`;
+    return;
+  }
+  const point = viewer.markScreenPosition(mark);
   const gap = mark.kind === 'point' ? 104 : 64;
-  inspector.style.left = `${Math.max(12, Math.min(window.innerWidth - width - 12, point.x + gap))}px`;
-  inspector.style.top = `${Math.max(12, Math.min(window.innerHeight - height - 12, point.y - 36))}px`;
+  inspector.style.left = `${Math.max(12, Math.min(maxLeft, point.x + gap))}px`;
+  inspector.style.top = `${Math.max(12, Math.min(maxTop, point.y - 36))}px`;
+}
+
+function bindMarkInspectorDrag(inspector) {
+  const handle = inspector.querySelector('header');
+  if (!handle) return;
+  handle.tabIndex = 0;
+  handle.setAttribute('aria-label', 'Move editor panel. Drag or use arrow keys.');
+  handle.title = 'Drag to move · use arrow keys when focused';
+
+  let drag = null;
+  const moveTo = (left, top) => {
+    const width = inspector.offsetWidth || 286;
+    const height = inspector.offsetHeight || 360;
+    const maxLeft = Math.max(12, window.innerWidth - width - 12);
+    const maxTop = Math.max(12, window.innerHeight - height - 12);
+    inspectorPosition = {
+      left: Math.max(12, Math.min(maxLeft, left)),
+      top: Math.max(12, Math.min(maxTop, top))
+    };
+    inspector.style.left = `${inspectorPosition.left}px`;
+    inspector.style.top = `${inspectorPosition.top}px`;
+  };
+
+  handle.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0 || event.target.closest('button, input, select, textarea, summary')) return;
+    const rect = inspector.getBoundingClientRect();
+    inspectorPosition ??= { left: rect.left, top: rect.top };
+    drag = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: rect.left, top: rect.top };
+    handle.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+  handle.addEventListener('pointermove', (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    event.preventDefault();
+    moveTo(drag.left + event.clientX - drag.x, drag.top + event.clientY - drag.y);
+  });
+  const finishDrag = (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    drag = null;
+  };
+  handle.addEventListener('pointerup', finishDrag);
+  handle.addEventListener('pointercancel', finishDrag);
+  handle.addEventListener('keydown', (event) => {
+    if (event.target !== handle) return;
+    const step = event.shiftKey ? 48 : 16;
+    const offsets = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+    const offset = offsets[event.key];
+    if (!offset) return;
+    event.preventDefault();
+    const rect = inspector.getBoundingClientRect();
+    moveTo(rect.left + offset[0], rect.top + offset[1]);
+  });
 }
 
 function updateLabelEditor() {
@@ -165,6 +230,10 @@ function updateLabelEditor() {
   overlay.style.top = `${top}px`;
   overlay.style.width = `${Math.max(28, Math.min(window.innerWidth - left - 8, geometry.width))}px`;
   overlay.style.height = `${Math.max(28, Math.min(window.innerHeight - top - 8, geometry.height))}px`;
+  overlay.style.setProperty('--label-center-x', `${geometry.center.x - left}px`);
+  overlay.style.setProperty('--label-center-y', `${geometry.center.y - top}px`);
+  overlay.style.setProperty('--label-corner-x', `${geometry.corner.x - left}px`);
+  overlay.style.setProperty('--label-corner-y', `${geometry.corner.y - top}px`);
 }
 
 function updateOverlays() {
@@ -225,7 +294,7 @@ function showPanel(name) {
 
 function lineTypeOptions(mark) {
   if (mark.kind !== 'line') return '';
-  return `<label class="field">Line type<select id="inspector-line-type"><option value="perforated" ${lineType(mark) === 'perforated' ? 'selected' : ''}>Perforated line</option><option value="natural" ${lineType(mark) === 'natural' ? 'selected' : ''}>Natural line</option></select></label>`;
+  return `<label class="field">Line type<select id="inspector-line-type"><option value="flat" ${lineType(mark) === 'flat' ? 'selected' : ''}>2D flat line</option><option value="perforated" ${lineType(mark) === 'perforated' ? 'selected' : ''}>Perforated line</option><option value="natural" ${lineType(mark) === 'natural' ? 'selected' : ''}>Natural line</option></select></label>`;
 }
 
 function renderMarkInspector() {
@@ -244,7 +313,7 @@ function renderMarkInspector() {
       <label class="field">Name<textarea id="inspector-name" rows="2" maxlength="100">${esc(mark.name ?? '')}</textarea></label>
       <div class="row"><label class="field">Colour<input id="inspector-color" type="color" value="${mark.color ?? '#70ced4'}"></label>${isPoint ? `<label class="field">Point size<input id="inspector-size" type="number" min="0.01" max="0.12" step="0.005" value="${markSize}"></label>` : mark.kind === 'label' ? `<label class="field">Font size<div class="stepper"><button type="button" data-size-step="-1" aria-label="Decrease font size">-</button><input id="inspector-size" type="text" inputmode="decimal" value="${markSize}" readonly aria-label="Font size"><button type="button" data-size-step="1" aria-label="Increase font size">+</button></div></label>` : ''}</div>
       ${lineTypeOptions(mark)}
-      ${isLine ? `<fieldset class="field thickness-field"><legend>Line thickness</legend><div class="segmented" id="inspector-thickness">${lineThicknessValues.map((value) => `<button type="button" data-thickness="${value}" aria-pressed="${value === thickness}">${value}</button>`).join('')}</div></fieldset>` : ''}
+      ${isLine ? `<fieldset class="field thickness-field"><legend>2D line thickness</legend><div class="segmented" id="inspector-thickness">${lineThicknessValues.map((value) => `<button type="button" data-thickness="${value}" aria-pressed="${value === thickness}">${value}</button>`).join('')}</div></fieldset>` : ''}
       ${mark.kind === 'label' ? `<label class="field">Label rotation<input id="inspector-rotation" type="number" min="-180" max="180" step="5" value="${mark.labelRotation ?? 0}"></label>` : ''}
       <details class="inspector-details"><summary>Metadata</summary><label class="field">Notes<textarea id="inspector-notes" rows="3">${esc(mark.notes ?? '')}</textarea></label><label class="field">Review status<select id="inspector-review"><option value="pending" ${mark.review !== 'reviewed' ? 'selected' : ''}>Pending review</option><option value="reviewed" ${mark.review === 'reviewed' ? 'selected' : ''}>Reviewed by me</option></select></label></details>
       ${isLine && mark.kind === 'line' ? `<div class="row"><button id="inspector-edit-curve">Edit curve</button><button id="inspector-move">Move line</button></div>` : mark.kind === 'label' ? '<p class="muted">Drag the center or corner handle on the label to move, resize, or rotate it.</p>' : ''}
@@ -253,6 +322,7 @@ function renderMarkInspector() {
     </div>`;
   inspector.hidden = false;
   updateMarkInspectorPosition();
+  bindMarkInspectorDrag(inspector);
 
   const mutate = (callback) => { beginInspectorEdit(); callback(); draw(); };
   $('#inspector-name').oninput = (event) => mutate(() => { mark.name = event.currentTarget.value.split(/\r?\n/).slice(0, 2).join('\n'); });
@@ -291,7 +361,8 @@ function renderEditor() {
     <div class="editor-actions"><button data-create="point">Create point</button><button data-create="line">Create line</button><button data-create="label">Create label</button><button id="edit-mode-toggle" class="edit-toggle" aria-pressed="${editMode}">${editMode ? 'Edit mode on' : 'Edit mode off'}</button></div>
     <p class="editor-state ${editMode ? 'active' : ''}">${editMode ? 'Select a marking on the ear or from the saved list.' : 'Create tools are ready. Editing is off.'}</p>
     <div class="row"><button id="deselect" class="wide">Clear selection</button><button id="undo" class="wide" ${history.length ? '' : 'disabled'}>Undo</button></div>
-    <h3>Saved layers</h3><div class="list">${marks.map((mark) => `<button data-select="${mark.id}" class="${mark.id === selected ? 'selected' : ''}">${esc(mark.name || 'Untitled')}<small>${mark.kind === 'point' ? 'Ear point' : mark.layer === 'naturalLines' ? 'Natural line' : mark.kind === 'label' ? 'Surface label' : 'Perforated line'} · ${esc(mark.review ?? 'pending')}</small></button>`).join('') || '<p class="muted">No markings yet. Create a point, line, or label on the ear.</p>'}</div>`;
+    <h3>Saved layers</h3><div class="list">${marks.map((mark) => `<button data-select="${mark.id}" class="${mark.id === selected ? 'selected' : ''}">${esc(mark.name || 'Untitled')}<small>${mark.kind === 'point' ? 'Ear point' : mark.layer === 'naturalLines' ? 'Natural line' : mark.kind === 'label' ? 'Surface label' : '2D flat line'} · ${esc(mark.review ?? 'pending')}</small></button>`).join('') || '<p class="muted">No markings yet. Create a point, line, or label on the ear.</p>'}</div>`;
+  document.querySelectorAll('[data-create]').forEach((button) => button.setAttribute('aria-pressed', button.dataset.create === viewer.mode));
   document.querySelectorAll('[data-create]').forEach((button) => button.onclick = () => {
     cancelInspectorEdit();
     cancelPointMove();
@@ -350,7 +421,7 @@ function undo() {
 }
 
 function createData(kind) {
-  return { name: kind === 'line' ? 'Untitled line' : '', color: kind === 'point' ? '#e23b46' : '#70ced4', size: .035, labelRotation: 0, page: null, thickness: 3, lineType: 'perforated' };
+  return { name: kind === 'line' ? 'Untitled line' : '', color: kind === 'point' ? '#e23b46' : '#70ced4', size: .035, labelRotation: 0, page: null, thickness: 3, ...(kind === 'line' ? { lineType: 'flat' } : {}) };
 }
 
 function onAction(action) {
@@ -463,7 +534,11 @@ function renderProject() {
 async function loadStarter() {
   const buffer = await (await fetch(`${base}models/ear.glb`)).arrayBuffer();
   await viewer.load(buffer, 'glb', true);
-  project = readProject(starter);
+  const localProject = readProject(starter);
+  const published = await fetch(`${base}data/atlas-project.json`).then((response) => response.ok ? response.json() : null).catch(() => null);
+  project = localStorage.getItem(`${KEY}:${starter.id}`)
+    ? localProject
+    : (published ? validateProject(published, starter.id) : localProject);
   project.model = { ...starter };
   saveProject(project);
   history = [];
@@ -478,14 +553,39 @@ $('#close-drawer').onclick = () => { if (nameEditId) closeNameEditor(false); can
 $('#front').onclick = () => viewer.fit();
 $('#back').onclick = () => viewer.fit(true);
 $('#fit').onclick = () => viewer.fit();
+document.querySelectorAll('[data-ear-side]').forEach((button) => button.onclick = () => { viewer.setSide(button.dataset.earSide); document.querySelectorAll('[data-ear-side]').forEach((item) => item.setAttribute('aria-pressed', String(item === button))); draw(); });
 for (const key of ['markings', 'naturalLines', 'points', 'labels']) $(`#${key}-toggle`).onclick = (event) => { viewer.visible[key] = !viewer.visible[key]; event.currentTarget.setAttribute('aria-pressed', viewer.visible[key]); draw(); };
 $('#annotation-name-input').oninput = (event) => { const mark = current(); if (!mark || mark.id !== nameEditId) return; mark.name = event.currentTarget.value.split(/\r?\n/).slice(0, 2).join('\n'); draw(); };
 $('#annotation-name-save').onclick = () => { closeNameEditor(true); if (panel === 'editor') renderEditor(); };
 $('#mark-inspector').addEventListener('pointerdown', (event) => event.stopPropagation());
-$('#label-edit-overlay').addEventListener('pointerdown', (event) => { const mark = current(); const hasEditableLabel = mark?.kind === 'label' || (mark?.kind === 'point' && mark.name); if (!editMode || !hasEditableLabel || nameEditId) return; event.preventDefault(); event.stopPropagation(); const type = event.target.closest('#label-edit-corner') ? 'corner' : 'move'; event.currentTarget.setPointerCapture?.(event.pointerId); viewer.startLabelGesture(mark, type, event.clientX, event.clientY); });
-window.addEventListener('pointermove', (event) => { if (!viewer?.labelGesture) return; event.preventDefault(); viewer.updateLabelGesture(event.clientX, event.clientY); });
-window.addEventListener('pointerup', () => { if (viewer?.labelGesture) { viewer.endLabelGesture(); updateLabelEditor(); } });
-window.addEventListener('pointercancel', () => { if (viewer?.labelGesture) { viewer.endLabelGesture(); updateLabelEditor(); } });
+$('#label-edit-overlay').addEventListener('pointerdown', (event) => {
+  const mark = current();
+  const hasEditableLabel = mark?.kind === 'label' || (mark?.kind === 'point' && mark.name);
+  if (!editMode || !hasEditableLabel || nameEditId || event.button !== 0) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const handle = event.target.closest('#label-edit-corner, #label-edit-move');
+  if (mark.kind === 'point' && !handle) {
+    viewer.startPointDrag(mark, event.pointerId);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    return;
+  }
+  const type = handle?.id === 'label-edit-corner' ? 'corner' : 'move';
+  event.currentTarget.setPointerCapture(event.pointerId);
+  viewer.startLabelGesture(mark, type, event.clientX, event.clientY);
+});
+window.addEventListener('pointermove', (event) => {
+  if (viewer?.labelGesture) { event.preventDefault(); viewer.updateLabelGesture(event.clientX, event.clientY); }
+  else if (viewer?.pointDrag) { event.preventDefault(); viewer.updatePointDrag(event.clientX, event.clientY, event.pointerId); }
+});
+window.addEventListener('pointerup', () => {
+  if (viewer?.labelGesture) { viewer.endLabelGesture(); updateLabelEditor(); }
+  else if (viewer?.pointDrag) viewer.endPointDrag(event.pointerId);
+});
+window.addEventListener('pointercancel', () => {
+  if (viewer?.labelGesture) { viewer.endLabelGesture(); updateLabelEditor(); }
+  else if (viewer?.pointDrag) viewer.endPointDrag();
+});
 $('#ref-prev').onclick = () => openReference(refPage - 1);
 $('#ref-next').onclick = () => openReference(refPage + 1);
 $('#ref-close').onclick = () => { $('#reference').hidden = true; };
