@@ -1,7 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { blankProject,validateProject } from '../src/storage.js';
+import { blankProject,hasAnnotations,selectProject,validateProject } from '../src/storage.js';
+test('published atlas fills an existing blank local project',()=>{
+ const model={id:'a'};
+ const local=blankProject(model);
+ const published=blankProject(model);
+ published.points.push({id:'p',name:'Shenmen',color:'#e23b46',size:.035,anchors:[{p:[0,0,0],n:[0,0,1],mesh:0}]});
+ assert.equal(hasAnnotations(local),false);
+ assert.equal(selectProject(local,published,'a'),published);
+});
+test('non-empty local atlas remains authoritative over published data',()=>{
+ const model={id:'a'};
+ const local=blankProject(model);
+ local.markings.push({id:'local',name:'Local',color:'#70ced4',size:.02,anchors:[{p:[0,0,0],n:[0,0,1],mesh:0},{p:[.1,0,0],n:[0,0,1],mesh:0}]});
+ const published=blankProject(model);
+ published.points.push({id:'published',name:'Published',color:'#e23b46',size:.035,anchors:[{p:[0,0,0],n:[0,0,1],mesh:0}]});
+ assert.equal(hasAnnotations(local),true);
+ assert.equal(selectProject(local,published,'a'),local);
+});
 test('rejects backups from other geometry to protect point registration',()=>{assert.throws(()=>validateProject(blankProject({id:'a'}),'b'),/different ear mesh/);});
 test('rejects malformed surface positions and duplicate annotation IDs',()=>{const p=blankProject({id:'a'});const point={id:'p',name:'Test',color:'#ffffff',size:.03,anchors:[{p:[0,0,0],n:[0,0,1],mesh:0}]};p.points=[point];assert.equal(validateProject(p,'a'),p);p.points.push({...point});assert.throws(()=>validateProject(p,'a'));p.points=[{...point,anchors:[{p:[null,0,0],n:[0,0,1],mesh:0}]}];assert.throws(()=>validateProject(p,'a'));});
 test('keeps natural-line marks separate and upgrades older backups in memory',()=>{const p=blankProject({id:'a'});const line={id:'line',name:'Antihelix',color:'#70ced4',size:.02,layer:'naturalLines',kind:'line',anchors:[{p:[0,0,0],n:[0,0,1],mesh:0},{p:[.1,0,0],n:[0,0,1],mesh:0}]};p.naturalLines.push(line);assert.equal(validateProject(p,'a').naturalLines[0],line);const old={...p};delete old.naturalLines;assert.deepEqual(validateProject(old,'a').naturalLines,[]);});

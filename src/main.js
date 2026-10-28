@@ -1,6 +1,6 @@
 import './style.css';
 import { EarViewer } from './viewer.js';
-import { KEY, readProject, saveProject, validateProject, readModel, saveModel, fingerprint } from './storage.js';
+import { readProject, saveProject, validateProject, selectProject, readModel, saveModel, fingerprint } from './storage.js';
 
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -536,9 +536,7 @@ async function loadStarter() {
   await viewer.load(buffer, 'glb', true);
   const localProject = readProject(starter);
   const published = await fetch(`${base}data/atlas-project.json`).then((response) => response.ok ? response.json() : null).catch(() => null);
-  project = localStorage.getItem(`${KEY}:${starter.id}`)
-    ? localProject
-    : (published ? validateProject(published, starter.id) : localProject);
+  project = selectProject(localProject, published, starter.id);
   project.model = { ...starter };
   saveProject(project);
   history = [];
@@ -611,7 +609,18 @@ try {
   viewer = new EarViewer($('#stage'), onAction);
   viewer.onFrame = updateOverlays;
   const stored = await readModel();
-  if (stored) { await viewer.load(stored.buffer, stored.format); project = readProject(stored.metadata); draw(); status('Atlas restored from this browser.'); }
+  if (stored) {
+    await viewer.load(stored.buffer, stored.format);
+    project = readProject(stored.metadata);
+    if (stored.metadata.id === starter.id) {
+      const published = await fetch(`${base}data/atlas-project.json`).then((response) => response.ok ? response.json() : null).catch(() => null);
+      project = selectProject(project, published, starter.id);
+      project.model = { ...starter };
+      saveProject(project);
+      status('Human Ear model · published atlas loaded');
+    } else status('Atlas restored from this browser.');
+    draw();
+  }
   else await loadStarter();
 } catch (error) {
   status(`Atlas could not load: ${error.message}`);

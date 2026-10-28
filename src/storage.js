@@ -1,5 +1,11 @@
 export const KEY='auricular-atlas-v1';
 export const blankProject=(model)=>({version:1,model,markings:[],naturalLines:[],points:[],combinations:{},updatedAt:null});
+export function hasAnnotations(project){return project.points.length>0||project.markings.length>0||project.naturalLines.length>0||Object.keys(project.combinations).length>0;}
+export function selectProject(localProject,publishedProject,modelId){
+ const local=validateProject(localProject,modelId);
+ if(hasAnnotations(local)||!publishedProject)return local;
+ return validateProject(publishedProject,modelId);
+}
 export function validateProject(p,modelId){
  if(!p||p.version!==1||p.model?.id!==modelId)throw Error('This backup belongs to a different ear mesh. Load its model first.');
  p.naturalLines??=[];
